@@ -4,247 +4,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="پایگاه خبری و فرهنگی کمیته خادم‌الشهداء شهرستان بهبهان">
-<title>خادم‌الشهداء بهبهان | پایگاه خبری و فرهنگی</title>
-
+<title>کمیته خادم‌الشهداء شهرستان بهبهان</title>
+<meta name="description" content="پایگاه خبری، فرهنگی و مذهبی کمیته خادم‌الشهداء شهرستان بهبهان">
 <style>
-* {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Tahoma,Arial,sans-serif;
+ background:#f5f5f0;
+ color:#252525;
+ line-height:2;
 }
-
-body {
-  margin: 0;
-  font-family: Tahoma, Arial, sans-serif;
-  background: #f5f3eb;
-  color: #292b25;
-  line-height: 2;
+header{
+ background:#102b22;
+ color:white;
+ padding:18px 12px;
+ text-align:center;
+ border-bottom:4px solid #c6a34a;
 }
-
-header {
-  background: linear-gradient(135deg,#102c22,#071a13);
-  color: white;
-  text-align: center;
-  padding: 30px 15px;
-  border-bottom: 5px solid #c5a04b;
+.logo{
+ width:105px;height:105px;
+ object-fit:contain;
+ background:white;
+ border-radius:50%;
+ padding:5px;
+ border:3px solid #c6a34a;
 }
-
-.logo {
-  width: 115px;
-  height: 115px;
-  object-fit: contain;
-  border-radius: 50%;
-  background: white;
-  padding: 5px;
-  border: 3px solid #c5a04b;
+header h1{font-size:22px;margin:8px 0 0}
+header p{color:#e4d5a5;margin:2px 0}
+nav{
+ background:#193b2e;
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:5px;
+ padding:10px;
+ position:sticky;
+ top:0;
+ z-index:10;
 }
-
-header h1 {
-  font-size: 25px;
-  margin: 10px 0 0;
+nav a{
+ color:white;
+ text-decoration:none;
+ padding:7px 12px;
+ font-size:14px;
+ border-radius:5px;
 }
-
-header p {
-  color: #e5c77d;
-  margin: 5px;
+nav a:hover{background:#c6a34a;color:#17251d}
+.hero{
+ background:linear-gradient(135deg,#102b22,#28543d);
+ color:white;
+ text-align:center;
+ padding:65px 18px;
+ border-bottom:5px solid #c6a34a;
 }
-
-nav {
-  background: #173c2e;
-  text-align: center;
-  padding: 12px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+.hero h2{font-size:27px;margin:0 0 12px}
+.hero p{color:#eee5ce;max-width:650px;margin:auto}
+.hero a{
+ display:inline-block;
+ margin-top:22px;
+ background:#c6a34a;
+ color:#17251d;
+ padding:9px 22px;
+ border-radius:6px;
+ text-decoration:none;
+ font-weight:bold;
 }
-
-nav a {
-  display: inline-block;
-  color: white;
-  text-decoration: none;
-  margin: 4px 9px;
-  font-size: 14px;
+.container{max-width:1050px;margin:auto;padding:25px 15px}
+.section-title{
+ color:#193b2e;
+ border-right:5px solid #c6a34a;
+ padding-right:12px;
+ margin:10px 0 20px;
+ font-size:21px;
 }
-
-nav a:hover {
-  color: #e5c77d;
+.cards{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:16px;
 }
-
-.hero {
-  padding: 65px 20px;
-  text-align: center;
-  background: linear-gradient(135deg,#173c2e,#071a13);
-  color: white;
+.card{
+ background:white;
+ padding:18px;
+ border-radius:10px;
+ box-shadow:0 3px 12px #00000012;
+ border-bottom:3px solid #c6a34a;
 }
-
-.hero h2 {
-  color: #e5c77d;
-  font-size: 27px;
+.card h3{color:#214735;margin-top:0}
+.card p{font-size:14px;color:#555}
+.about{
+ background:#e9eee8;
+ border-radius:10px;
+ padding:22px;
 }
-
-.hero p {
-  max-width: 700px;
-  margin: auto;
+footer{
+ background:#102b22;
+ color:white;
+ text-align:center;
+ padding:25px 12px;
+ margin-top:30px;
+ border-top:4px solid #c6a34a;
 }
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 25px 16px;
-}
-
-.section-title {
-  color: #173c2e;
-  border-right: 5px solid #c5a04b;
-  padding-right: 12px;
-  margin-top: 35px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 18px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #e5dfce;
-  box-shadow: 0 3px 12px #0000000b;
-}
-
-.card h3 {
-  color: #24533d;
-}
-
-.card p {
-  color: #555;
-}
-
-.about {
-  background: #e9e5d7;
-  padding: 25px;
-  border-radius: 12px;
-  margin-top: 15px;
-}
-
-footer {
-  background: #102c22;
-  color: white;
-  text-align: center;
-  padding: 25px 15px;
-  margin-top: 35px;
-  border-top: 4px solid #c5a04b;
-}
-
-footer p {
-  margin: 5px;
-}
-
-@media(max-width:600px) {
-  header h1 {font-size:20px;}
-  .hero h2 {font-size:22px;}
-  nav a {font-size:12px;margin:3px;}
-}
+footer p{margin:5px}
+.small{font-size:12px;color:#d8d8d8}
 </style>
 </head>
-
 <body>
 
 <header>
-  <img class="logo" src="images.jpg" alt="لوگوی کمیته خادم‌الشهداء">
-  <h1>پایگاه خبری و فرهنگی خادم‌الشهداء</h1>
-  <p>کمیته خادم‌الشهداء شهرستان بهبهان</p>
+<img class="logo" src="images.jpg" alt="لوگوی کمیته خادم‌الشهداء">
+<h1>کمیته خادم‌الشهداء شهرستان بهبهان</h1>
+<p>پایگاه خبری، فرهنگی و مذهبی</p>
 </header>
 
 <nav>
-  <a href="#home">صفحه اصلی</a>
-  <a href="#news">اخبار و اطلاعیه‌ها</a>
-  <a href="#shohada">معرفی شهدا</a>
-  <a href="#events">مناسبت‌ها</a>
-  <a href="#gallery">گزارش تصویری</a>
-  <a href="#about">درباره ما</a>
+<a href="#home">صفحه اصلی</a>
+<a href="#news">آخرین اخبار</a>
+<a href="#shohada">معرفی شهدا</a>
+<a href="#events">مناسبت‌ها</a>
+<a href="#gallery">گزارش تصویری</a>
+<a href="#about">درباره ما</a>
 </nav>
 
 <section class="hero" id="home">
-  <h2>به پایگاه خادم‌الشهداء خوش آمدید</h2>
-  <p>
-    روایتگر فرهنگ ایثار، شهادت و خدمت؛
-    همراه با معرفی شهدای گرانقدر و انعکاس اخبار،
-    مراسم‌ها و فعالیت‌های فرهنگی شهرستان بهبهان.
-  </p>
+<h2>به پایگاه رسمی خادم‌الشهداء بهبهان خوش آمدید</h2>
+<p>
+رسانه‌ای برای انعکاس اخبار، فعالیت‌های فرهنگی،
+برنامه‌های مذهبی و زنده نگه داشتن یاد و نام شهدا
+</p>
+<a href="#news">مشاهده آخرین اخبار</a>
 </section>
 
 <main class="container">
 
 <section id="news">
-  <h2 class="section-title">آخرین اخبار و اطلاعیه‌ها</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>اخبار و اطلاعیه‌ها</h3>
-      <p>انتشار تازه‌ترین اخبار و اطلاعیه‌های کمیته خادم‌الشهداء شهرستان بهبهان.</p>
-    </div>
-
-    <div class="card">
-      <h3>گزارش مراسم‌ها</h3>
-      <p>انعکاس مراسم‌ها و برنامه‌های فرهنگی و مذهبی شهرستان بهبهان.</p>
-    </div>
-
-    <div class="card">
-      <h3>فعالیت‌های فرهنگی</h3>
-      <p>معرفی برنامه‌ها و فعالیت‌های فرهنگی و اجتماعی کمیته.</p>
-    </div>
-  </div>
+<h2 class="section-title">آخرین اخبار و اطلاعیه‌ها</h2>
+<div class="cards">
+<div class="card">
+<h3>اخبار و اطلاعیه‌ها</h3>
+<p>در این بخش اخبار و اطلاعیه‌های کمیته منتشر خواهد شد.</p>
+</div>
+<div class="card">
+<h3>گزارش برنامه‌ها</h3>
+<p>گزارش فعالیت‌ها و برنامه‌های فرهنگی شهرستان بهبهان.</p>
+</div>
+<div class="card">
+<h3>فراخوان‌ها</h3>
+<p>اطلاع‌رسانی برنامه‌ها و فراخوان‌های فرهنگی و مذهبی.</p>
+</div>
+</div>
 </section>
 
 <section id="shohada">
-  <h2 class="section-title">معرفی شهدای شهرستان بهبهان</h2>
-  <div class="card">
-    <p>
-      در این بخش زندگینامه، خاطرات، تصاویر و وصیت‌نامه
-      شهدای گرانقدر شهرستان بهبهان منتشر خواهد شد.
-    </p>
-  </div>
+<h2 class="section-title">معرفی شهدای شهرستان بهبهان</h2>
+<div class="cards">
+<div class="card">
+<h3>یاد و نام شهدا</h3>
+<p>در این قسمت زندگی‌نامه، خاطرات و وصیت‌نامه شهدا معرفی خواهد شد.</p>
+</div>
+<div class="card">
+<h3>فرهنگ ایثار و شهادت</h3>
+<p>آشنایی با ارزش‌ها و آرمان‌های شهدا و انتقال آن به نسل جوان.</p>
+</div>
+</div>
 </section>
 
 <section id="events">
-  <h2 class="section-title">مناسبت‌های ملی و مذهبی</h2>
-  <div class="card">
-    <p>
-      گرامیداشت مناسبت‌های ملی، مذهبی و انقلابی
-      و انتشار مطالب فرهنگی مرتبط با این مناسبت‌ها.
-    </p>
-  </div>
+<h2 class="section-title">مناسبت‌های مذهبی و ملی</h2>
+<div class="card">
+<p>
+اطلاع‌رسانی مناسبت‌های مذهبی، ملی، ایام سوگواری
+و برنامه‌های فرهنگی مرتبط.
+</p>
+</div>
 </section>
 
 <section id="gallery">
-  <h2 class="section-title">گزارش تصویری</h2>
-  <div class="card">
-    <p>
-      تصاویر مراسم‌ها، برنامه‌ها و فعالیت‌های کمیته
-      خادم‌الشهداء شهرستان بهبهان در این بخش قرار می‌گیرد.
-    </p>
-  </div>
+<h2 class="section-title">گزارش تصویری</h2>
+<div class="card">
+<h3>تصاویر مراسم و فعالیت‌ها</h3>
+<p>تصاویر برنامه‌ها و مراسم کمیته در این بخش قرار می‌گیرند.</p>
+</div>
 </section>
 
 <section id="about">
-  <h2 class="section-title">درباره کمیته خادم‌الشهداء</h2>
-  <div class="about">
-    <p>
-      کمیته خادم‌الشهداء شهرستان بهبهان با هدف ترویج
-      فرهنگ ایثار و شهادت، زنده نگه داشتن یاد و خاطره
-      شهدا و انعکاس فعالیت‌های فرهنگی و مذهبی فعالیت می‌کند.
-    </p>
-  </div>
+<h2 class="section-title">درباره کمیته</h2>
+<div class="about">
+<p>
+کمیته خادم‌الشهداء شهرستان بهبهان با هدف ترویج فرهنگ ایثار
+و شهادت، زنده نگه داشتن یاد شهدا و انعکاس فعالیت‌های
+فرهنگی و مذهبی فعالیت می‌کند.
+</p>
+</div>
 </section>
 
 </main>
 
 <footer>
-  <p>کمیته خادم‌الشهداء شهرستان بهبهان</p>
-  <p>روایتگر فرهنگ ایثار، شهادت و خدمت</p>
-  <p>تمامی حقوق محتوای این پایگاه متعلق به کمیته است.</p>
+<p>🍃 کمیته خادم‌الشهداء شهرستان بهبهان 🍃</p>
+<p class="small">پایگاه خبری، فرهنگی و مذهبی</p>
+<p class="small">تمامی حقوق این پایگاه محفوظ است.</p>
 </footer>
 
 </body>
