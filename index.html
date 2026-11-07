@@ -133,6 +133,7 @@ section{margin-bottom:35px}
 <a href="#events">مناسبت‌ها</a>
 <a href="#gallery">گزارش تصویری</a>
 <a href="#about">درباره ما</a>
+<a href="#feedback">انتقادات و پیشنهادات</a>
 </nav>
 
 <section class="hero" id="home">
@@ -249,6 +250,36 @@ section{margin-bottom:35px}
 تصاویر برنامه‌ها، مراسم و فعالیت‌های کمیته
 در این بخش قرار می‌گیرند.
 </p>
+</div>
+</section>
+
+
+<section id="feedback">
+<h2 class="section-title">سامانه انتقادات و پیشنهادات</h2>
+<div class="about">
+<p>صدای شما برای بهتر شدن فعالیت‌های کمیته خادم‌الشهداء شهرستان بهبهان ارزشمند است. دیدگاه‌ها و پیشنهادهای خود را از طریق فرم زیر با ما در میان بگذارید.</p>
+<form id="feedback-form">
+<div style="margin-bottom:14px">
+<label for="feedback-type" style="display:block;font-weight:bold;margin-bottom:6px">موضوع پیام</label>
+<select id="feedback-type" name="type" required style="width:100%;padding:12px;border:1px solid #c9b7a5;border-radius:7px;font-family:Tahoma;font-size:16px">
+<option value="">انتخاب کنید</option>
+<option>انتقاد</option>
+<option>پیشنهاد</option>
+<option>درخواست همکاری</option>
+<option>سایر موارد</option>
+</select>
+</div>
+<div style="margin-bottom:14px">
+<label for="feedback-name" style="display:block;font-weight:bold;margin-bottom:6px">نام (اختیاری)</label>
+<input id="feedback-name" name="name" type="text" maxlength="80" placeholder="نام شما" style="width:100%;padding:12px;border:1px solid #c9b7a5;border-radius:7px;font-family:Tahoma;font-size:16px">
+</div>
+<div style="margin-bottom:14px">
+<label for="feedback-message" style="display:block;font-weight:bold;margin-bottom:6px">متن پیام</label>
+<textarea id="feedback-message" name="message" rows="5" maxlength="2000" required placeholder="انتقاد یا پیشنهاد خود را بنویسید..." style="width:100%;padding:12px;border:1px solid #c9b7a5;border-radius:7px;font-family:Tahoma;font-size:16px;resize:vertical"></textarea>
+</div>
+<button type="submit" disabled style="background:#d4af37;color:#4b1018;border:0;border-radius:7px;padding:11px 24px;font-family:Tahoma;font-size:16px;font-weight:bold;opacity:.7;cursor:not-allowed">ارسال پیام (به‌زودی فعال می‌شود)</button>
+<p style="font-size:13px;color:#6b5555;margin-bottom:0">این فرم هنوز به سامانه ذخیره‌سازی متصل نشده است؛ فعلاً پیام‌ها ارسال یا ذخیره نمی‌شوند.</p>
+</form>
 </div>
 </section>
 
