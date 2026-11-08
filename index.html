@@ -483,5 +483,50 @@ allowfullscreen>
 })();
 </script>
 
+
+<!-- نمایش خودکار مطالب منتشرشده از پنل مدیریت -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+  const url = 'https://ntmhxnzvetexesrkplyx.supabase.co';
+  const key = 'sb_publishable_jSrsYpC4WBiuNBI0wAWoBQ_c0xzT37B';
+  if (!window.supabase) return;
+  const db = window.supabase.createClient(url, key);
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+  async function show(kind, sectionId) {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+    const { data, error } = await db.from('site_content')
+      .select('*').eq('kind', kind).eq('published', true)
+      .order('created_at', { ascending: false }).limit(50);
+    if (error || !data || !data.length) return;
+    let container = section.querySelector('.dynamic-content');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'cards dynamic-content';
+      section.appendChild(container);
+    }
+    container.innerHTML = data.map(item => {
+      const image = item.image_url
+        ? '<img src="' + escapeHTML(item.image_url) + '" alt="' + escapeHTML(item.title) + '" loading="lazy" style="width:100%;height:auto;border-radius:10px;margin:10px 0">'
+        : '';
+      const details = [
+        item.event_date ? '<p><strong>زمان:</strong> ' + escapeHTML(item.event_date) + '</p>' : '',
+        item.location ? '<p><strong>مکان:</strong> ' + escapeHTML(item.location) + '</p>' : '',
+        item.organizer ? '<p><strong>برگزارکننده / منبع:</strong> ' + escapeHTML(item.organizer) + '</p>' : ''
+      ].join('');
+      return '<article class="card"><h3>' + escapeHTML(item.title) + '</h3>' +
+        image + '<p>' + escapeHTML(item.body).replace(/\n/g, '<br>') + '</p>' +
+        details + '</article>';
+    }).join('');
+  }
+  show('news', 'news');
+  show('event', 'events');
+  show('shohada', 'shohada');
+  show('gallery', 'gallery');
+})();
+</script>
 </body>
 </html>
