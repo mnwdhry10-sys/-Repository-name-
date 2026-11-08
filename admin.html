@@ -19,7 +19,7 @@
 <section id="dashboard" class="hidden">
 <div class="panel"><div class="row"><div><strong id="who"></strong><div class="muted">مدیریت محتوای سایت</div></div><div style="text-align:left"><button id="logout" class="secondary">خروج</button></div></div></div>
 <div class="tabs" id="tabs">
-<button data-kind="news" class="active">اخبار</button><button data-kind="event">مناسبت‌ها</button><button data-kind="shohada">معرفی شهدا</button><button data-kind="gallery">گزارش تصویری</button><button data-kind="feedback">پیام‌های مردمی</button>
+<button data-kind="news" class="active">اخبار</button><button data-kind="event">مناسبت‌ها</button><button data-kind="shohada">معرفی شهدا</button><button data-kind="gallery">گزارش تصویری</button><button data-kind="donation">اطلاعیه واریز نذورات</button><button data-kind="feedback">پیام‌های مردمی</button>
 </div>
 <div id="feedbackPanel" class="panel hidden"><h2>پیام‌های انتقادات و پیشنهادات</h2><button id="refreshFeedback">بارگذاری پیام‌ها</button><div id="feedbackList"></div></div>
 <div id="contentPanel">
@@ -45,7 +45,7 @@ const SUPABASE_KEY='sb_publishable_jSrsYpC4WBiuNBI0wAWoBQ_c0xzT37B';
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let kind='news';
 const $=id=>document.getElementById(id);
-const labels={news:'خبر',event:'مناسبت',shohada:'معرفی شهید',gallery:'گزارش تصویری'};
+const labels={news:'خبر',event:'مناسبت',shohada:'معرفی شهید',gallery:'گزارش تصویری',donation:'اطلاعیه واریز نذورات'};
 function esc(v=''){return String(v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function status(id,msg){$(id).textContent=msg;}
 async function verify(){
