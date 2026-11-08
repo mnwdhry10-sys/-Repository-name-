@@ -502,10 +502,10 @@ allowfullscreen>
       .select('*').eq('kind', kind).eq('published', true)
       .order('created_at', { ascending: false }).limit(50);
     if (error || !data || !data.length) return;
-    let container = section.querySelector('.dynamic-content');
+    let container = section.querySelector('.cards');
     if (!container) {
       container = document.createElement('div');
-      container.className = 'cards dynamic-content';
+      container.className = 'cards';
       section.appendChild(container);
     }
     container.innerHTML = data.map(item => {
