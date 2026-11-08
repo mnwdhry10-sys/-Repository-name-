@@ -183,6 +183,105 @@ nav a:hover{background:var(--gold);color:var(--primary)}
  .section-title{font-size:21px}
 }
 
+
+/* بازطراحی یکپارچه: رسمی، خبری و مذهبی */
+:root{
+ --primary:#142536;
+ --primary-light:#203b52;
+ --gold:#c6a45a;
+ --cream:#f7f5ef;
+ --cream-deep:#ece8dc;
+ --text:#25313a;
+ --muted:#687681;
+}
+body{background:var(--cream);color:var(--text);line-height:2.05}
+header{
+ background:linear-gradient(135deg,#102132,#1d3a50);
+ border-bottom:4px solid var(--gold);
+ padding:24px 14px 20px;
+ box-shadow:0 5px 22px rgba(12,28,42,.16)
+}
+.logo{width:112px;height:112px;border:3px solid var(--gold);box-shadow:0 0 0 5px rgba(198,164,90,.13)}
+header h1{font-size:clamp(21px,3vw,29px);letter-spacing:-.4px}
+header p{color:#e8d9b5}
+nav{
+ background:rgba(20,37,54,.97);
+ border-bottom:1px solid rgba(198,164,90,.55);
+ box-shadow:0 5px 18px rgba(12,28,42,.13);
+ gap:7px;padding:11px 9px
+}
+nav a{border:1px solid rgba(198,164,90,.48);border-radius:8px;padding:6px 13px;font-size:14px}
+nav a:hover,nav a:focus{background:var(--gold);color:#142536}
+.hero{
+ position:relative;
+ background:
+ linear-gradient(115deg,rgba(13,29,44,.92),rgba(26,56,76,.78)),
+ url('https://www.ghabeshgh.ir/data/0002/20/15493874477344.jpg') center/cover no-repeat;
+ padding:72px 18px 62px;
+ border-bottom:4px solid var(--gold)
+}
+.hero h2{font-size:clamp(25px,4vw,37px);line-height:1.7}
+.hero p{font-size:clamp(15px,2vw,19px);line-height:2.2}
+.hero a{background:var(--gold);color:#172a3b;border-radius:8px;padding:11px 25px;box-shadow:0 5px 16px rgba(0,0,0,.18)}
+#live-clock{background:rgba(8,20,31,.58)!important;border-color:rgba(218,190,123,.8)!important;backdrop-filter:blur(5px)}
+.container{max-width:1160px;padding:30px 18px}
+section{scroll-margin-top:90px;margin-bottom:42px}
+.section-title{
+ color:var(--primary);border:0;border-right:5px solid var(--gold);
+ border-radius:0;padding:3px 14px 3px 0;margin:8px 0 22px;
+ font-size:clamp(21px,3vw,26px);width:auto
+}
+.cards{gap:19px}
+.card{
+ background:#fff;border:1px solid #e9e4d8;border-bottom:3px solid var(--gold);
+ border-radius:14px;padding:21px;box-shadow:0 7px 22px rgba(23,42,57,.055);
+ transition:transform .2s ease,box-shadow .2s ease
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,42,57,.10)}
+.card h3,.card .news-title{color:var(--primary)}
+.card p{line-height:2.15}
+.about{background:linear-gradient(135deg,#f0ede4,#e8e4d8);border:1px solid #e0d7c4;border-radius:14px;padding:24px}
+#donations .card{border-bottom-color:#8b6b35}
+#shohada .card{border-bottom-color:#8d3540}
+#events .card{border-bottom-color:#66816f}
+#gallery .card{border-bottom-color:#6b8295}
+footer{background:linear-gradient(135deg,#102132,#1d3a50);border-top:4px solid var(--gold);padding:30px 14px}
+footer a{color:#e5c77f!important}
+.quick-access{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
+ max-width:1160px;margin:28px auto 8px;padding:0 18px
+}
+.quick-access a{
+ display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--primary);
+ background:#fff;border:1px solid #e7dfcf;border-radius:13px;padding:15px;
+ box-shadow:0 5px 16px rgba(23,42,57,.045);font-weight:bold;transition:.2s
+}
+.quick-access a:hover{border-color:var(--gold);transform:translateY(-2px)}
+.quick-icon{
+ width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;
+ background:#f1ead9;border-radius:11px;color:#8b6b35;font-size:21px
+}
+.daily-verse{
+ max-width:1124px;margin:24px auto 8px;padding:22px 25px;text-align:center;
+ border:1px solid #d9c89e;border-radius:15px;
+ background:linear-gradient(120deg,#f3efdf,#fffdf7);
+ color:#27394a;box-shadow:0 6px 18px rgba(23,42,57,.045)
+}
+.daily-verse .verse{font-size:clamp(18px,2.5vw,23px);font-weight:bold;color:#21394d}
+.daily-verse .translation{font-size:14px;color:#69747a;margin:6px 0 0}
+@media(max-width:760px){.quick-access{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick-access a{padding:12px;font-size:14px}}
+@media(max-width:420px){.quick-access{padding:0 12px}.quick-access a{gap:8px}.quick-icon{width:36px;height:36px;flex-basis:36px}}
+@media(max-width:600px){
+ header h1{font-size:21px}
+ .hero{padding:48px 15px}
+ .hero h2{font-size:25px}
+ .hero p{font-size:16px}
+ nav a{font-size:13px;padding:6px 9px}
+ .section-title{font-size:21px}
+ .container{padding:22px 13px}
+ .card{padding:17px}
+}
+
 </style>
 </head>
 
@@ -222,6 +321,19 @@ nav a:hover{background:var(--gold);color:var(--primary)}
 <br>
 <a href="#news">مشاهده آخرین اخبار</a>
 </section>
+
+<div class="quick-access" aria-label="دسترسی سریع">
+  <a href="#news"><span class="quick-icon" aria-hidden="true">📰</span><span>اخبار و اطلاعیه‌ها</span></a>
+  <a href="#shohada"><span class="quick-icon" aria-hidden="true">🌹</span><span>معرفی شهدا</span></a>
+  <a href="#events"><span class="quick-icon" aria-hidden="true">🕌</span><span>مراسم و مناسبت‌ها</span></a>
+  <a href="#gallery"><span class="quick-icon" aria-hidden="true">📷</span><span>گزارش تصویری</span></a>
+</div>
+
+<div class="daily-verse">
+  <div style="font-size:13px;color:#8b6b35;font-weight:bold;margin-bottom:5px">کلام نور</div>
+  <div class="verse">وَلَا تَحْسَبَنَّ الَّذِينَ قُتِلُوا فِي سَبِيلِ اللَّهِ أَمْوَاتًا</div>
+  <div class="translation">گمان مبر آنان که در راه خدا کشته شدند، مردگانند؛ بلکه زنده‌اند و نزد پروردگارشان روزی داده می‌شوند. — آل‌عمران، آیه ۱۶۹</div>
+</div>
 
 <main class="container">
 
