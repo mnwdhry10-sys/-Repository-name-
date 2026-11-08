@@ -329,10 +329,11 @@ footer a{color:#e5c77f!important}
   <a href="#gallery"><span class="quick-icon" aria-hidden="true">📷</span><span>گزارش تصویری</span></a>
 </div>
 
-<div class="daily-verse">
+<div class="daily-verse" aria-label="آیه قرآن">
   <div style="font-size:13px;color:#8b6b35;font-weight:bold;margin-bottom:5px">کلام نور</div>
-  <div class="verse">وَلَا تَحْسَبَنَّ الَّذِينَ قُتِلُوا فِي سَبِيلِ اللَّهِ أَمْوَاتًا</div>
-  <div class="translation">گمان مبر آنان که در راه خدا کشته شدند، مردگانند؛ بلکه زنده‌اند و نزد پروردگارشان روزی داده می‌شوند. — آل‌عمران، آیه ۱۶۹</div>
+  <div class="verse" id="daily-verse-text" aria-live="polite">وَلَا تَحْسَبَنَّ الَّذِينَ قُتِلُوا فِي سَبِيلِ اللَّهِ أَمْوَاتًا</div>
+  <div class="translation" id="daily-verse-translation">گمان مبر آنان که در راه خدا کشته شدند، مردگانند؛ بلکه زنده‌اند و نزد پروردگارشان روزی داده می‌شوند. — آل‌عمران، آیه ۱۶۹</div>
+  <div id="daily-verse-number" style="font-size:11px;color:#9a865c;margin-top:9px">آیه ۱ از ۵</div>
 </div>
 
 <main class="container">
@@ -489,6 +490,62 @@ allowfullscreen>
 <p class="small">تمامی حقوق این پایگاه محفوظ است.</p>
 </footer>
 
+
+
+<script>
+/* جابه‌جایی خودکار آیات قرآن */
+(function () {
+  const verseNode = document.getElementById('daily-verse-text');
+  const translationNode = document.getElementById('daily-verse-translation');
+  const numberNode = document.getElementById('daily-verse-number');
+  if (!verseNode || !translationNode || !numberNode) return;
+
+  const verses = [
+    {
+      text: 'وَلَا تَحْسَبَنَّ الَّذِينَ قُتِلُوا فِي سَبِيلِ اللَّهِ أَمْوَاتًا ۚ بَلْ أَحْيَاءٌ عِندَ رَبِّهِمْ يُرْزَقُونَ',
+      translation: 'گمان مبر آنان که در راه خدا کشته شدند، مردگانند؛ بلکه زنده‌اند و نزد پروردگارشان روزی داده می‌شوند. — آل‌عمران، آیه ۱۶۹'
+    },
+    {
+      text: 'وَلَا تَقُولُوا لِمَن يُقْتَلُ فِي سَبِيلِ اللَّهِ أَمْوَاتٌ ۚ بَلْ أَحْيَاءٌ وَلَٰكِن لَّا تَشْعُرُونَ',
+      translation: 'به کسانی که در راه خدا کشته می‌شوند مرده نگویید؛ بلکه آنان زنده‌اند، ولی شما درنمی‌یابید. — بقره، آیه ۱۵۴'
+    },
+    {
+      text: 'وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ',
+      translation: 'سست نشوید و اندوهگین نباشید؛ اگر ایمان داشته باشید، شما برترید. — آل‌عمران، آیه ۱۳۹'
+    },
+    {
+      text: 'يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
+      translation: 'ای کسانی که ایمان آورده‌اید، از شکیبایی و نماز یاری بجویید؛ همانا خدا با شکیبایان است. — بقره، آیه ۱۵۳'
+    },
+    {
+      text: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+      translation: 'پس بی‌تردید با دشواری، آسانی است؛ آری، با دشواری آسانی است. — شرح، آیات ۵ و ۶'
+    }
+  ];
+
+  let current = 0;
+  function showNextVerse() {
+    verseNode.style.opacity = '0';
+    translationNode.style.opacity = '0';
+    numberNode.style.opacity = '0';
+    window.setTimeout(function () {
+      current = (current + 1) % verses.length;
+      verseNode.textContent = verses[current].text;
+      translationNode.textContent = verses[current].translation;
+      numberNode.textContent = 'آیه ' + new Intl.NumberFormat('fa-IR').format(current + 1) +
+        ' از ' + new Intl.NumberFormat('fa-IR').format(verses.length);
+      verseNode.style.opacity = '1';
+      translationNode.style.opacity = '1';
+      numberNode.style.opacity = '1';
+    }, 450);
+  }
+
+  [verseNode, translationNode, numberNode].forEach(function (node) {
+    node.style.transition = 'opacity .45s ease';
+  });
+  window.setInterval(showNextVerse, 12000);
+})();
+</script>
 
 <script>
 (function () {
