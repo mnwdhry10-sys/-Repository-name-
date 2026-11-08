@@ -115,6 +115,38 @@ footer{
 footer p{margin:5px}
 .small{font-size:12px;color:#d8d8d8}
 section{margin-bottom:35px}
+
+/* پالت رنگی رسمی: زرشکی، طلایی و سفید استخوانی */
+:root{
+ --primary:#641B27;
+ --primary-light:#7A2632;
+ --gold:#C5A04B;
+ --cream:#F8F6F1;
+ --cream-deep:#F1EAE2;
+ --text:#292522;
+}
+body{background:var(--cream);color:var(--text)}
+header,footer{background:var(--primary);border-color:var(--gold)}
+nav{background:var(--primary-light)}
+nav a:hover{background:var(--gold);color:var(--primary)}
+.hero{
+ background:linear-gradient(rgba(55,12,20,.80),rgba(100,27,39,.76)),url('https://www.ghabeshgh.ir/data/0002/20/15493874477344.jpg') center/cover no-repeat;
+ border-color:var(--gold)
+}
+.hero a{background:var(--gold);color:var(--primary)}
+.section-title{color:var(--primary);border-color:var(--gold)}
+.card{border-bottom-color:var(--gold);box-shadow:0 3px 14px rgba(55,30,20,.08)}
+.card h3,.card .news-title{color:var(--primary)}
+.about{background:var(--cream-deep)}
+@media(max-width:600px){
+ header h1{font-size:21px}
+ .hero{padding:48px 15px}
+ .hero h2{font-size:25px}
+ .hero p{font-size:16px}
+ nav a{font-size:14px;padding:6px 9px}
+ .section-title{font-size:21px}
+}
+
 </style>
 </head>
 
