@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mnwdhry10-sys.github.io/-Repository-name-/sitemap.xml
