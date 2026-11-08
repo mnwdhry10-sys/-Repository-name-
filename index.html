@@ -443,6 +443,23 @@ allowfullscreen>
   const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[ch]));
+  function renderItems(container, items, position) {
+    if (!items.length) return;
+    const html = items.map(item => {
+      const image = item.image_url
+        ? '<img src="' + escapeHTML(item.image_url) + '" alt="' + escapeHTML(item.title) + '" loading="lazy" style="width:100%;height:auto;border-radius:10px;margin:10px 0">'
+        : '';
+      const details = [
+        item.event_date ? '<p><strong>زمان:</strong> ' + escapeHTML(item.event_date) + '</p>' : '',
+        item.location ? '<p><strong>مکان:</strong> ' + escapeHTML(item.location) + '</p>' : '',
+        item.organizer ? '<p><strong>برگزارکننده / منبع:</strong> ' + escapeHTML(item.organizer) + '</p>' : ''
+      ].join('');
+      return '<article class="card"><h3>' + escapeHTML(item.title) + '</h3>' +
+        image + '<p>' + escapeHTML(item.body).replace(/\\n/g, '<br>') + '</p>' +
+        details + '</article>';
+    }).join('');
+    container.insertAdjacentHTML(position, html);
+  }
   async function show(kind, sectionId) {
     const section = document.getElementById(sectionId);
     if (!section) return;
@@ -456,25 +473,34 @@ allowfullscreen>
       container.className = 'cards';
       section.appendChild(container);
     }
-    container.insertAdjacentHTML(kind === 'news' ? 'afterbegin' : 'beforeend', data.map(item => {
-      const image = item.image_url
-        ? '<img src="' + escapeHTML(item.image_url) + '" alt="' + escapeHTML(item.title) + '" loading="lazy" style="width:100%;height:auto;border-radius:10px;margin:10px 0">'
-        : '';
-      const details = [
-        item.event_date ? '<p><strong>زمان:</strong> ' + escapeHTML(item.event_date) + '</p>' : '',
-        item.location ? '<p><strong>مکان:</strong> ' + escapeHTML(item.location) + '</p>' : '',
-        item.organizer ? '<p><strong>برگزارکننده / منبع:</strong> ' + escapeHTML(item.organizer) + '</p>' : ''
-      ].join('');
-      return '<article class="card"><h3>' + escapeHTML(item.title) + '</h3>' +
-        image + '<p>' + escapeHTML(item.body).replace(/\n/g, '<br>') + '</p>' +
-        details + '</article>';
-    }).join(''));
+    const visibleItems = kind === 'news'
+      ? data.filter(item => !String(item.title || '').includes('مساعدت در برپایی خیمه عزای مادر سادات'))
+      : data;
+    renderItems(container, visibleItems, kind === 'news' ? 'afterbegin' : 'beforeend');
+  }
+  async function showDonations() {
+    const section = document.getElementById('donations');
+    if (!section) return;
+    const { data: donationItems, error: donationError } = await db.from('site_content')
+      .select('*').eq('kind', 'donation').eq('published', true)
+      .order('created_at', { ascending: false }).limit(50);
+    const { data: oldNewsItems, error: oldNewsError } = await db.from('site_content')
+      .select('*').eq('kind', 'news').eq('published', true)
+      .ilike('title', '%مساعدت در برپایی خیمه عزای مادر سادات%')
+      .order('created_at', { ascending: false }).limit(10);
+    if (donationError || oldNewsError) return;
+    const merged = [...(donationItems || [])];
+    for (const item of (oldNewsItems || [])) {
+      if (!merged.some(existing => existing.id === item.id)) merged.push(item);
+    }
+    const container = section.querySelector('.cards') || section;
+    renderItems(container, merged, 'beforeend');
   }
   show('news', 'news');
   show('event', 'events');
   show('shohada', 'shohada');
   show('gallery', 'gallery');
-  show('donation', 'donations');
+  showDonations();
 })();
 </script>
 </body>
