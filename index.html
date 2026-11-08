@@ -489,12 +489,13 @@ allowfullscreen>
       .ilike('title', '%مساعدت در برپایی خیمه عزای مادر سادات%')
       .order('created_at', { ascending: false }).limit(10);
     if (donationError || oldNewsError) return;
-    const merged = [...(donationItems || [])];
-    for (const item of (oldNewsItems || [])) {
-      if (!merged.some(existing => existing.id === item.id)) merged.push(item);
-    }
+    const merged = [...(donationItems || []), ...(oldNewsItems || [])]
+      .filter(item => !String(item.title || '').includes('مساعدت در برپایی خیمه عزای مادر سادات'));
+    const uniqueItems = merged.filter((item, index, items) =>
+      items.findIndex(existing => existing.id === item.id) === index
+    );
     const container = section.querySelector('.cards') || section;
-    renderItems(container, merged, 'beforeend');
+    renderItems(container, uniqueItems, 'beforeend');
   }
   show('news', 'news');
   show('event', 'events');
