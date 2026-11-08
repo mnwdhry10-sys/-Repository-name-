@@ -142,9 +142,12 @@ section{margin-bottom:35px}
 رسانه‌ای برای انعکاس اخبار، فعالیت‌های فرهنگی،
 برنامه‌های مذهبی و زنده نگه داشتن یاد و نام شهدا
 </p>
-<div id="live-clock" aria-label="ساعت و تاریخ" style="display:inline-block;margin:22px auto 0;padding:12px 26px;border:1px solid #d4af37;border-radius:12px;background:rgba(50,8,15,.45);min-width:220px">
+<div id="live-clock" aria-label="ساعت، تاریخ و شمارش معکوس مراسم" style="display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin:22px auto 0;padding:12px 20px;border:1px solid #d4af37;border-radius:12px;background:rgba(50,8,15,.45);min-width:220px">
+<div>
 <div id="clock-time" style="font-size:34px;font-weight:bold;direction:ltr;font-variant-numeric:tabular-nums">--:--:--</div>
 <div id="clock-date" dir="rtl" style="font-size:15px;color:#f5e7d5;text-align:center;direction:rtl;width:100%">در حال بارگذاری تاریخ...</div>
+</div>
+<div id="event-countdown" style="font-size:12px;line-height:1.8;color:#f5e7d5;border-right:1px solid #d4af37;padding-right:12px;max-width:125px">در حال محاسبه...</div>
 </div>
 <br>
 <a href="#news">مشاهده آخرین اخبار</a>
@@ -326,6 +329,7 @@ section{margin-bottom:35px}
 (function () {
   const timeNode = document.getElementById('clock-time');
   const dateNode = document.getElementById('clock-date');
+  const countdownNode = document.getElementById('event-countdown');
   if (!timeNode || !dateNode) return;
   function updateClock() {
     const now = new Date();
@@ -338,6 +342,22 @@ section{margin-bottom:35px}
     const values = {};
     parts.forEach(part => { if (part.type !== 'literal') values[part.type] = part.value; });
     dateNode.textContent = values.weekday + ' ' + values.day + ' ' + values.month + ' ' + values.year;
+
+    if (countdownNode) {
+      const eventDate = new Date(2026, 10, 11);
+      eventDate.setHours(0, 0, 0, 0);
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const daysLeft = Math.ceil((eventDate - today) / 86400000);
+      if (daysLeft > 1) {
+        countdownNode.textContent = new Intl.NumberFormat('fa-IR').format(daysLeft) + ' روز مانده تا اولین مراسم';
+      } else if (daysLeft === 1) {
+        countdownNode.textContent = 'فردا؛ آغاز اولین مراسم';
+      } else if (daysLeft === 0) {
+        countdownNode.textContent = 'امروز؛ آغاز اولین مراسم';
+      } else {
+        countdownNode.textContent = 'مراسم آغاز شده است';
+      }
+    }
   }
   updateClock();
   setInterval(updateClock, 1000);
