@@ -508,7 +508,7 @@ allowfullscreen>
       container.className = 'cards';
       section.appendChild(container);
     }
-    container.insertAdjacentHTML('beforeend', data.map(item => {
+    container.insertAdjacentHTML(kind === 'news' ? 'afterbegin' : 'beforeend', data.map(item => {
       const image = item.image_url
         ? '<img src="' + escapeHTML(item.image_url) + '" alt="' + escapeHTML(item.title) + '" loading="lazy" style="width:100%;height:auto;border-radius:10px;margin:10px 0">'
         : '';
