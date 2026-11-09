@@ -57,12 +57,15 @@ async function verify(){
  $('login').classList.add('hidden');$('dashboard').classList.remove('hidden');$('who').textContent=user.email||'مدیر';await loadItems();
 }
 $('loginBtn').onclick=async(e)=>{e.preventDefault();const btn=$('loginBtn');btn.disabled=true;try{status('loginStatus','در حال اتصال و بررسی اطلاعات...');const email=$('email').value.trim(),password=$('password').value;if(!email||!password){status('loginStatus','لطفاً ایمیل و رمز عبور را وارد کنید.');return;}const {error}=await db.auth.signInWithPassword({email,password});if(error){status('loginStatus','ورود ناموفق: '+error.message);return;}status('loginStatus','ورود انجام شد؛ در حال بازکردن پنل...');await verify();}catch(err){status('loginStatus','خطا در ورود: '+(err?.message||String(err)));}finally{btn.disabled=false;}};
+function withBannerTimeout(promise,label){
+ return Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error(label+' بیش از ۲۰ ثانیه طول کشید؛ اتصال اینترنت و تنظیمات Supabase را بررسی کنید.')),20000))]);
+}
 async function uploadBannerImage(file){
  if(!file||!file.type.startsWith('image/'))throw new Error('فایل انتخاب‌شده تصویر معتبر نیست.');
  if(file.size>5*1024*1024)throw new Error('حجم تصویر باید کمتر از ۵ مگابایت باشد.');
  const name=Date.now()+'-'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
- const {error}=await db.storage.from('site-images').upload(name,file,{upsert:false,contentType:file.type});
- if(error)throw error;
+ const result=await withBannerTimeout(db.storage.from('site-images').upload(name,file,{upsert:false,contentType:file.type}),'آپلود تصویر');
+ if(result.error)throw result.error;
  return db.storage.from('site-images').getPublicUrl(name).data.publicUrl;
 }
 function clearBannerForm(){$('bannerForm').reset();$('bannerId').value='';$('bannerOrder').value='0';$('bannerActive').checked=true;$('bannerStatus').textContent='آماده ثبت بنر.';}
@@ -72,14 +75,28 @@ async function loadBanners(){
  $('bannerList').innerHTML=(data||[]).map(x=>'<article class="item"><h3>'+esc(x.title)+'</h3>'+(x.image_url?'<img src="'+esc(x.image_url)+'" alt="" style="width:100%;max-width:520px;border-radius:8px">':'')+'<p class="muted">'+(x.active?'فعال':'غیرفعال')+' | ترتیب: '+x.sort_order+'</p><button data-banner-edit="'+x.id+'">ویرایش</button><button class="secondary" data-banner-delete="'+x.id+'">حذف</button></article>').join('')||'<p>هنوز بنری ثبت نشده است.</p>';
 }
 $('bannerForm').onsubmit=async e=>{
- e.preventDefault();$('bannerStatus').textContent='در حال ذخیره...';
+ e.preventDefault();
+ const submit=$('bannerForm').querySelector('button[type="submit"]');
+ submit.disabled=true;
+ $('bannerStatus').textContent='در حال ذخیره بنر...';
  try{
-  let imageUrl=$('bannerUrl').value.trim()||null;const file=$('bannerFile').files[0];if(file)imageUrl=await uploadBannerImage(file);
+  let imageUrl=$('bannerUrl').value.trim()||null;
+  const file=$('bannerFile').files[0];
+  if(file)imageUrl=await uploadBannerImage(file);
   if(!imageUrl)throw new Error('لطفاً تصویر بنر را انتخاب کنید یا لینک تصویر را وارد کنید.');
   const payload={title:$('bannerTitle').value.trim()||null,image_url:imageUrl,target_url:$('bannerLink').value.trim()||null,active:$('bannerActive').checked,sort_order:Number($('bannerOrder').value)||0};
-  const id=$('bannerId').value;const q=id?db.from('site_banners').update(payload).eq('id',id):db.from('site_banners').insert(payload);
-  const {error}=await q;if(error)throw error;$('bannerStatus').textContent='بنر با موفقیت ذخیره شد.';clearBannerForm();await loadBanners();
- }catch(err){$('bannerStatus').textContent='ذخیره انجام نشد: '+err.message;}
+  const id=$('bannerId').value;
+  const query=id?db.from('site_banners').update(payload).eq('id',id):db.from('site_banners').insert(payload);
+  const result=await withBannerTimeout(query,'ذخیره اطلاعات بنر');
+  if(result.error)throw result.error;
+  $('bannerStatus').textContent='بنر با موفقیت ذخیره شد.';
+  clearBannerForm();
+  await loadBanners();
+ }catch(err){
+  $('bannerStatus').textContent='ذخیره انجام نشد: '+(err?.message||String(err));
+ }finally{
+  submit.disabled=false;
+ }
 };
 $('bannerClear').onclick=clearBannerForm;$('refreshBanners').onclick=loadBanners;
 $('bannerList').onclick=async e=>{
