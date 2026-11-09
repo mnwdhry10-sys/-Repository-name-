@@ -64,16 +64,14 @@ async function uploadBannerImage(file){
  if(!file||!file.type.startsWith('image/'))throw new Error('فایل انتخاب‌شده تصویر معتبر نیست.');
  if(file.size>5*1024*1024)throw new Error('حجم تصویر باید کمتر از ۵ مگابایت باشد.');
  const bucket=db.storage.from('site-images');
- const probe=await withBannerTimeout(bucket.list('',{limit:1}),'بررسی فضای ذخیره تصاویر');
- if(probe.error){
-  const msg=probe.error.message||'';
-  if(/bucket.*not found|not found/i.test(msg))throw new Error('فضای site-images در Supabase ساخته نشده است. بخش Storage را بررسی و فایل SQL به‌روزشده را اجرا کنید.');
-  if(/permission|policy|row-level|unauthorized|forbidden/i.test(msg))throw new Error('دسترسی خواندن فضای site-images در Supabase تنظیم نیست. سیاست Public can view site images را بررسی کنید. جزئیات: '+msg);
-  throw new Error('اتصال به فضای ذخیره تصاویر برقرار نشد: '+msg);
- }
  const name=Date.now()+'-'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
  const result=await withBannerTimeout(bucket.upload(name,file,{upsert:false,contentType:file.type}),'آپلود تصویر');
- if(result.error)throw result.error;
+ if(result.error){
+  const msg=result.error.message||'';
+  if(/bucket.*not found|not found/i.test(msg))throw new Error('مخزن site-images پیدا نشد.');
+  if(/permission|policy|row-level|unauthorized|forbidden/i.test(msg))throw new Error('دسترسی آپلود مدیر در Storage مجاز نیست. سیاست Admins can upload site images و ثبت حساب مدیر را بررسی کنید. جزئیات: '+msg);
+  throw result.error;
+ }
  return bucket.getPublicUrl(name).data.publicUrl;
 }
 function clearBannerForm(){$('bannerForm').reset();$('bannerId').value='';$('bannerOrder').value='0';$('bannerActive').checked=true;$('bannerStatus').textContent='آماده ثبت بنر.';}
