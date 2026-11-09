@@ -402,10 +402,28 @@ a[style*="background:#7b1e2a"]{background:#4b1727!important}
 .fatemiyeh-corner{position:absolute;right:22px;top:20px;color:#e4c98f;border:1px solid #a9854d;background:#10090ebd;border-radius:7px;padding:7px 12px;font-size:13px}
 @media(max-width:650px){.fatemiyeh-art-banner{min-height:270px;aspect-ratio:auto}.fatemiyeh-art-copy{width:72%;margin-right:23%;padding:28px 8px}.fatemiyeh-kicker{font-size:11px}.fatemiyeh-art-copy h2{font-size:clamp(27px,8vw,42px)}.fatemiyeh-art-copy p{font-size:14px}.fatemiyeh-art-copy strong{font-size:27px}.fatemiyeh-corner{top:8px;right:8px;font-size:10px;padding:4px 7px}.fatemiyeh-rule{margin-bottom:4px}}
 
+/* قاب شمع‌های کوچک در حاشیه تمام صفحات */
+.fatemiyeh-candle-frame{position:fixed;inset:0;z-index:12;pointer-events:none;overflow:hidden;opacity:.78}
+.candle-edge{position:absolute;display:flex;align-items:center;justify-content:space-around;gap:8px}
+.candle-edge span{display:block;font-size:clamp(13px,1.5vw,19px);line-height:1;filter:drop-shadow(0 0 5px rgba(255,190,83,.65));animation:candle-glow 2.8s ease-in-out infinite alternate}
+.candle-edge span:nth-child(2n){animation-delay:.8s}
+.candle-top,.candle-bottom{left:24px;right:24px;height:22px}
+.candle-top{top:2px}.candle-bottom{bottom:2px}
+.candle-left,.candle-right{top:28px;bottom:28px;width:22px;flex-direction:column}
+.candle-left{left:2px}.candle-right{right:2px}
+@keyframes candle-glow{from{opacity:.68;filter:drop-shadow(0 0 3px rgba(255,177,66,.4))}to{opacity:1;filter:drop-shadow(0 0 8px rgba(255,190,83,.9))}}
+@media(max-width:600px){.fatemiyeh-candle-frame{opacity:.7}.candle-edge span{font-size:12px}.candle-top,.candle-bottom{left:16px;right:16px;height:16px}.candle-left,.candle-right{top:22px;bottom:22px;width:15px}.candle-left{left:0}.candle-right{right:0}}
+
 </style>
 </head>
 
 <body>
+<div class="fatemiyeh-candle-frame" aria-hidden="true">
+  <div class="candle-edge candle-top"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
+  <div class="candle-edge candle-bottom"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
+  <div class="candle-edge candle-left"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
+  <div class="candle-edge candle-right"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
+</div>
 
 <header>
 <img class="logo" src="images.jpg" alt="لوگوی کمیته خادم‌الشهداء">
