@@ -14,7 +14,7 @@
 <h2>ورود مدیر</h2><p class="muted">برای ورود از حسابی استفاده کنید که دسترسی مدیریت آن در Supabase فعال شده است.</p>
 <label>ایمیل مدیر</label><input id="email" type="email" autocomplete="username" placeholder="ایمیل">
 <label>رمز عبور</label><input id="password" type="password" autocomplete="current-password" placeholder="رمز عبور">
-<button id="loginBtn">ورود به پنل</button><div id="loginStatus" class="status" role="status">اطلاعات ورود را وارد کنید.</div>
+<button id="loginBtn" type="button">ورود به پنل</button><div id="loginStatus" class="status" role="status">اطلاعات ورود را وارد کنید.</div>
 </section>
 <section id="dashboard" class="hidden">
 <div class="panel"><div class="row"><div><strong id="who"></strong><div class="muted">مدیریت محتوای سایت</div></div><div style="text-align:left"><button id="logout" class="secondary">خروج</button></div></div></div>
@@ -42,6 +42,7 @@
 <script>
 const SUPABASE_URL='https://ntmhxnzvetexesrkplyx.supabase.co';
 const SUPABASE_KEY='sb_publishable_jSrsYpC4WBiuNBI0wAWoBQ_c0xzT37B';
+if(!window.supabase){document.getElementById('loginStatus').textContent='کتابخانه ورود بارگذاری نشد. اینترنت یا دسترسی به cdn.jsdelivr.net را بررسی کنید و صفحه را تازه‌سازی کنید.';throw new Error('Supabase JS library unavailable');}
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let kind='news';
 const $=id=>document.getElementById(id);
@@ -55,7 +56,7 @@ async function verify(){
  if(error||!admin){await db.auth.signOut();status('loginStatus','این حساب دسترسی مدیریت ندارد. ابتدا دسترسی مدیر را در Supabase فعال کنید.');$('login').classList.remove('hidden');return;}
  $('login').classList.add('hidden');$('dashboard').classList.remove('hidden');$('who').textContent=user.email||'مدیر';await loadItems();
 }
-$('loginBtn').onclick=async()=>{status('loginStatus','در حال بررسی...');const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});status('loginStatus',error?error.message:'ورود انجام شد.');if(!error)await verify();};
+$('loginBtn').onclick=async(e)=>{e.preventDefault();const btn=$('loginBtn');btn.disabled=true;try{status('loginStatus','در حال اتصال و بررسی اطلاعات...');const email=$('email').value.trim(),password=$('password').value;if(!email||!password){status('loginStatus','لطفاً ایمیل و رمز عبور را وارد کنید.');return;}const {error}=await db.auth.signInWithPassword({email,password});if(error){status('loginStatus','ورود ناموفق: '+error.message);return;}status('loginStatus','ورود انجام شد؛ در حال بازکردن پنل...');await verify();}catch(err){status('loginStatus','خطا در ورود: '+(err?.message||String(err)));}finally{btn.disabled=false;}};
 async function uploadBannerImage(file){
  if(!file||!file.type.startsWith('image/'))throw new Error('فایل انتخاب‌شده تصویر معتبر نیست.');
  if(file.size>5*1024*1024)throw new Error('حجم تصویر باید کمتر از ۵ مگابایت باشد.');
@@ -87,7 +88,6 @@ $('bannerList').onclick=async e=>{
  if(edit){const {data,error}=await db.from('site_banners').select('*').eq('id',edit.dataset.bannerEdit).single();if(error){$('bannerStatus').textContent=error.message;return;}$('bannerId').value=data.id;$('bannerTitle').value=data.title||'';$('bannerUrl').value=data.image_url;$('bannerLink').value=data.target_url||'';$('bannerOrder').value=data.sort_order||0;$('bannerActive').checked=data.active;$('bannerFile').value='';window.scrollTo({top:0,behavior:'smooth'});}
 };
 
-verify();
 $('logout').onclick=async()=>{await db.auth.signOut();location.reload();};
 $('tabs').onclick=async e=>{const b=e.target.closest('button[data-kind]');if(!b)return;kind=b.dataset.kind;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));const fb=kind==='feedback',bn=kind==='banners';$('feedbackPanel').classList.toggle('hidden',!fb);$('bannersPanel').classList.toggle('hidden',!bn);$('contentPanel').classList.toggle('hidden',fb||bn);if(fb)await loadFeedback();else if(bn)await loadBanners();else{clearForm();await loadItems();}};
 function updateFieldsForKind(){const isShohada=kind==='shohada';$('dateLabel').textContent=isShohada?'تاریخ شهادت (اختیاری)':'تاریخ یا زمان برگزاری (اختیاری)';$('locationLabel').textContent=isShohada?'مکان شهادت (اختیاری)':'مکان (اختیاری)';$('eventDate').placeholder=isShohada?'مثلاً ۱۳ آبان ۱۳۶۱':'مثلاً چهارشنبه ۲۰ آبان';$('location').placeholder=isShohada?'مثلاً عین خوش':'محل برگزاری';$('organizerField').classList.toggle('hidden',isShohada);}
