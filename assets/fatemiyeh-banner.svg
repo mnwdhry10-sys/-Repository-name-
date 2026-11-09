@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 570" role="img" aria-labelledby="title desc">
+<title id="title">بنر ایام فاطمیه</title><desc id="desc">یا فاطمة الزهرا، ایام شهادت حضرت فاطمه زهرا تسلیت باد</desc>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#090609"/><stop offset=".55" stop-color="#32121f"/><stop offset="1" stop-color="#090609"/></linearGradient>
+ <linearGradient id="gold" x2="1" y2="1"><stop stop-color="#fff0bd"/><stop offset=".5" stop-color="#d4aa62"/><stop offset="1" stop-color="#80502c"/></linearGradient>
+ <linearGradient id="wood"><stop stop-color="#1b100d"/><stop offset=".5" stop-color="#76502f"/><stop offset="1" stop-color="#1c100d"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#ffc45a" stop-opacity=".65"/><stop offset="1" stop-color="#ff9d2e" stop-opacity="0"/></radialGradient>
+ <pattern id="pattern" width="72" height="72" patternUnits="userSpaceOnUse"><path d="M36 2 70 36 36 70 2 36Z M36 18 54 36 36 54 18 36Z" fill="none" stroke="#c79d5d" stroke-opacity=".2" stroke-width="2"/></pattern>
+</defs>
+<rect width="1600" height="570" fill="url(#bg)"/><rect width="1600" height="570" fill="url(#pattern)"/>
+<path d="M0 0h480v570H0z" fill="url(#wood)"/><path d="M35 0v570M445 0v570M72 0h336M72 570h336" stroke="url(#gold)" stroke-width="7" opacity=".65"/>
+<g fill="none" stroke="#c99d5c" stroke-width="4" opacity=".55"><path d="M95 0v570M385 0v570"/><path d="M50 75h380M50 495h380"/></g>
+<g fill="#d0a45f" opacity=".65"><circle cx="95" cy="100" r="9"/><circle cx="95" cy="220" r="9"/><circle cx="95" cy="340" r="9"/><circle cx="95" cy="460" r="9"/><circle cx="385" cy="100" r="9"/><circle cx="385" cy="220" r="9"/><circle cx="385" cy="340" r="9"/><circle cx="385" cy="460" r="9"/></g>
+<ellipse cx="270" cy="420" rx="210" ry="190" fill="url(#glow)"/>
+<g transform="translate(220 340)"><path d="M0 30h65v155H0z" fill="#dfc28b"/><path d="M32 30C-4-9 41-38 34-80 78-23 59 9 32 30Z" fill="#ffc65c"/><path d="M34 18C18-6 43-22 38-42 62-9 49 10 34 18Z" fill="#fff2c7"/><path d="M0 70h65M0 125h65" stroke="#fff0c5" stroke-opacity=".5" stroke-width="4"/></g>
+<path d="M490 0q90 160 0 300t70 270" fill="none" stroke="#050407" stroke-width="90" opacity=".6"/>
+<path d="M710 78Q800 15 890 78Q980 15 1070 78Q1160 15 1250 78" fill="none" stroke="url(#gold)" stroke-width="3"/>
+<path d="M700 492Q800 555 900 492Q1000 555 1100 492Q1200 555 1300 492" fill="none" stroke="url(#gold)" stroke-width="3"/>
+<path d="M760 120Q1000 40 1240 120L1280 285 1240 450Q1000 530 760 450L720 285Z" fill="#120b10" stroke="#bd9251" stroke-width="4"/>
+<path d="M790 142Q1000 80 1210 142L1240 285 1210 428Q1000 490 790 428L760 285Z" fill="none" stroke="#c9a466" stroke-opacity=".55" stroke-width="2"/>
+<g text-anchor="middle" font-family="Tahoma,Arial,sans-serif">
+ <text x="1000" y="205" fill="#e8c47b" font-size="30">کمیته خادم‌الشهداء شهرستان بهبهان</text>
+ <text x="1000" y="305" fill="#f4d18c" font-size="76" font-weight="bold">یا فاطمة الزهرا (س)</text>
+ <path d="M820 340h360" stroke="#bd9251" stroke-width="2"/>
+ <text x="1000" y="397" fill="#fff0de" font-size="35">ایام شهادت حضرت فاطمه زهرا (س)</text>
+ <text x="1000" y="455" fill="#e7c17e" font-size="46" font-weight="bold">تسلیت باد</text>
+</g>
+<g fill="#9e263c"><path d="M130 545q-42-38-6-68 8 31 33 37-7-29 21-40 8 35-12 57-14 16-36 14Z"/><path d="M1430 545q-42-38-6-68 8 31 33 37-7-29 21-40 8 35-12 57-14 16-36 14Z"/></g>
+</svg>
