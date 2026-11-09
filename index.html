@@ -303,6 +303,89 @@ footer a{color:#e5c77f!important}
 .memorial-quote span{display:block;width:70px;height:3px;background:#c6a45a;margin:15px auto 0;border-radius:5px}
 @media(max-width:600px){.memorial-quote{margin:20px 13px;padding:23px 12px}}
 
+
+/* قالب مناسبتی ایام فاطمیه — قابل بازگشت با حذف این بخش */
+:root{
+ --primary:#241018;
+ --primary-light:#35131f;
+ --gold:#c7a56a;
+ --cream:#f4eeee;
+ --cream-deep:#eadde0;
+ --text:#2b2024;
+ --mourning:#170d12;
+ --mourning-red:#4b1727;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text)}
+header{
+ background:linear-gradient(135deg,#120a0e 0%,#35121f 58%,#211018 100%);
+ border-bottom:3px solid var(--gold);
+ box-shadow:0 7px 25px rgba(20,5,12,.2);
+}
+header p{color:#e4cfae}
+.logo{border-color:var(--gold);box-shadow:0 0 0 5px rgba(199,165,106,.12)}
+nav{
+ background:rgba(25,10,17,.98);
+ border-bottom:1px solid rgba(199,165,106,.55);
+ box-shadow:0 5px 18px rgba(20,5,12,.18);
+}
+nav a{border-color:rgba(199,165,106,.55)}
+nav a:hover,nav a:focus{background:var(--gold);color:#211018}
+.hero{
+ background:
+ linear-gradient(115deg,rgba(13,7,11,.94),rgba(67,18,34,.86)),
+ url('https://www.ghabeshgh.ir/data/0002/20/15493874477344.jpg') center/cover no-repeat;
+ border-bottom:4px solid var(--gold);
+}
+.hero h2{color:#fff4e8}
+.hero p{color:#ead9d0}
+.hero a{background:var(--gold);color:#251018}
+.section-title{color:#4b1727;border-right-color:var(--gold)}
+.card{
+ background:#fffafa;
+ border-color:#eadde0;
+ border-bottom-color:var(--gold);
+ box-shadow:0 7px 22px rgba(44,13,25,.07);
+}
+.card h3,.card .news-title{color:#4b1727}
+.card p{color:#51434a}
+.about{background:linear-gradient(135deg,#f0e6e8,#e8dadd);border:1px solid #dfcbd1}
+footer{
+ background:linear-gradient(135deg,#120a0e,#35121f);
+ border-top:4px solid var(--gold);
+}
+.quick-access a{color:#35131f;border-color:#e4d6d8;background:#fffafa}
+.quick-access a:hover{border-color:var(--gold)}
+.quick-icon{background:#f1e6e8;color:#81513e}
+.daily-verse{
+ background:linear-gradient(120deg,#f1e6e8,#fffafa);
+ border-color:#c9ad87;color:#3a202a;
+}
+.daily-verse .verse{color:#4b1727}
+.memorial-quote{
+ background:linear-gradient(135deg,#170d12,#4b1727);
+ border-color:var(--gold);
+}
+#live-clock{background:rgba(15,6,11,.7)!important;border-color:var(--gold)!important}
+#feedback-form input,#feedback-form textarea,#feedback-form select{
+ border-color:#cdb9bd;background:#fffdfd;color:#2b2024;
+}
+#feedback-submit{background:var(--gold)!important;color:#28151b!important}
+a[style*="background:#7b1e2a"]{background:#4b1727!important}
+.fatemiyeh-banner{
+ padding:12px 16px;text-align:center;
+ color:#f8eee9;
+ background:linear-gradient(90deg,#1a0c12,#4b1727,#1a0c12);
+ border-bottom:1px solid rgba(199,165,106,.75);
+ font-weight:bold;letter-spacing:.2px;
+}
+.fatemiyeh-banner strong{color:#e4c58f}
+.fatemiyeh-banner small{display:block;color:#dfc9c6;font-weight:normal;font-size:12px}
+@media(max-width:600px){
+ .fatemiyeh-banner{font-size:14px;padding:10px 8px}
+ .fatemiyeh-banner small{font-size:11px}
+}
+
 </style>
 </head>
 
@@ -313,6 +396,11 @@ footer a{color:#e5c77f!important}
 <h1>کمیته خادم‌الشهداء شهرستان بهبهان</h1>
 <p>پایگاه خبری، فرهنگی و مذهبی</p>
 </header>
+
+<div class="fatemiyeh-banner" role="note" aria-label="ویژه ایام فاطمیه">
+  <strong>یا فاطمة الزهرا (سلام‌الله‌علیها)</strong>
+  <small>ایام سوگواری شهادت حضرت فاطمه زهرا (س) تسلیت باد</small>
+</div>
 
 <nav>
 <a href="#home">صفحه اصلی</a>
