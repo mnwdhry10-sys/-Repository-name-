@@ -470,9 +470,11 @@ a[style*="background:#7b1e2a"]{background:#4b1727!important}
 <section id="fatemiyeh-audio" aria-label="نوحه ایام فاطمیه" style="max-width:900px;margin:18px auto;padding:16px 18px;text-align:center;background:linear-gradient(135deg,#1a0c12,#4b1727);border:1px solid #c7a56a;border-radius:13px;color:#fff4e8;box-shadow:0 6px 18px rgba(20,5,12,.12)">
   <h2 style="font-size:19px;color:#e6c98e;margin:0 0 5px">نوحه ایام فاطمیه</h2>
   <p style="margin:0 0 12px;font-size:14px;color:#ead9d0">تسبیحات حضرت زهرا (س) — حاج مهدی رسولی</p>
-  <button id="fatemiyeh-play-button" type="button" style="border:1px solid #e1c27f;background:#c7a56a;color:#241018;border-radius:8px;padding:9px 22px;font-family:Tahoma,Arial,sans-serif;font-size:15px;font-weight:bold;cursor:pointer">▶ پخش نوحه</button>
-  <div id="fatemiyeh-player" style="display:none;margin-top:14px;aspect-ratio:16/9;width:100%;max-width:640px;margin-right:auto;margin-left:auto;overflow:hidden;border-radius:9px;background:#080508"></div>
-  <p id="fatemiyeh-audio-status" role="status" aria-live="polite" style="font-size:12px;color:#d9c8c1;margin:8px 0 0">برای شروع پخش، دکمه را انتخاب کنید.</p>
+  <audio controls preload="none" playsinline style="display:block;width:100%;max-width:560px;margin:12px auto">
+    <source src="https://dl.melovy.ir/2022/01/mahdi-rasoli-tasbihat-hazrat-zahra2.mp3" type="audio/mpeg">
+    مرورگر شما از پخش صوت پشتیبانی نمی‌کند.
+  </audio>
+  <p style="font-size:12px;color:#d9c8c1;margin:8px 0 0">برای پخش، دکمهٔ ▶ را بزنید.</p>
 </section>
 
 <section class="hero" id="home">
@@ -916,31 +918,6 @@ allowfullscreen>
 })();
 </script>
 \n
-<script>
-(function () {
-  const button = document.getElementById('fatemiyeh-play-button');
-  const player = document.getElementById('fatemiyeh-player');
-  const status = document.getElementById('fatemiyeh-audio-status');
-  if (!button || !player || !status) return;
-  button.addEventListener('click', function () {
-    if (!player.querySelector('iframe')) {
-      const frame = document.createElement('iframe');
-      frame.src = 'https://www.youtube.com/embed/jiv6AvasjMo?autoplay=1&rel=0';
-      frame.title = 'نوحه تسبیحات حضرت زهرا (س) با صدای حاج مهدی رسولی';
-      frame.loading = 'lazy';
-      frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-      frame.referrerPolicy = 'strict-origin-when-cross-origin';
-      frame.allowFullscreen = true;
-      frame.style.cssText = 'width:100%;height:100%;border:0';
-      player.appendChild(frame);
-    }
-    player.style.display = 'block';
-    button.textContent = 'نوحه در حال پخش است';
-    button.disabled = true;
-    button.style.opacity = '.8';
-    status.innerHTML = 'اگر پخش‌کننده باز نشد، <a href="https://www.youtube.com/watch?v=jiv6AvasjMo" target="_blank" rel="noopener noreferrer" style="color:#f0d18f;text-decoration:underline">نوحه را در یوتیوب باز کنید</a>. برای توقف یا تنظیم صدا از کنترل‌های پخش‌کننده استفاده کنید.';
-  });
-})();
-</script>
+
 </body>
 </html>
