@@ -7,6 +7,7 @@
 <link rel="shortcut icon" type="image/jpeg" href="images.jpg">
 <link rel="apple-touch-icon" href="images.jpg">
 <meta name="theme-color" content="#64131d">
+<link rel="manifest" href="manifest.webmanifest">
 <title>کمیته خادم‌الشهداء بهبهان | اخبار و فعالیت‌های فرهنگی</title>
 <meta name="description" content="پایگاه رسمی خبری، فرهنگی و مذهبی کمیته خادم‌الشهداء شهرستان بهبهان؛ انتشار اخبار مراسم، برنامه‌های فرهنگی، مناسبت‌های مذهبی و معرفی شهدای بهبهان.">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -343,6 +344,7 @@ footer a{color:#e5c77f!important}
 <a href="#news">مشاهده آخرین اخبار</a>
 </section>
 
+<div style="text-align:center;margin:14px auto"><button id="install-app" type="button" hidden style="background:#64131d;color:#fff;border:1px solid #c5a04b;border-radius:9px;padding:11px 20px;font:inherit;cursor:pointer">نصب اپلیکیشن کمیته</button></div>
 <div class="quick-access" aria-label="دسترسی سریع">
   <a href="#news"><span class="quick-icon" aria-hidden="true">📰</span><span>اخبار و اطلاعیه‌ها</span></a>
   <a href="#shohada"><span class="quick-icon" aria-hidden="true">🌹</span><span>معرفی شهدا</span></a>
@@ -515,6 +517,7 @@ allowfullscreen>
 <a href="https://eitaa.com/khademin_shohada_beh" target="_blank" rel="noopener noreferrer" style="color:#d4af37;text-decoration:none;font-weight:bold">@khademin_shohada_beh</a>
 </p>
 <p class="small">تمامی حقوق این پایگاه محفوظ است.</p>
+<p style="margin-top:12px"><a href="admin.html">ورود مدیران به پنل مدیریت</a></p>
 </footer>
 
 
@@ -756,6 +759,14 @@ allowfullscreen>
   show('gallery', 'gallery');
   showDonations();
 })();
+</script>
+<script>
+if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(err => console.warn("Service worker:", err))); }
+let installPromptEvent;
+const installButton=document.getElementById("install-app");
+window.addEventListener("beforeinstallprompt", event => { event.preventDefault(); installPromptEvent=event; if(installButton) installButton.hidden=false; });
+if(installButton) installButton.addEventListener("click", async () => { if(!installPromptEvent) return; installPromptEvent.prompt(); await installPromptEvent.userChoice; installPromptEvent=null; installButton.hidden=true; });
+window.addEventListener("appinstalled", () => { if(installButton) installButton.hidden=true; });
 </script>
 </body>
 </html>
