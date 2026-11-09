@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "کمیته خادم‌الشهداء شهرستان بهبهان",
+  "short_name": "خادم‌الشهداء",
+  "description": "پایگاه خبری، فرهنگی و مذهبی کمیته خادم‌الشهداء شهرستان بهبهان",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#201d2e",
+  "theme_color": "#64131d",
+  "icons": [
+    {
+      "src": "./app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
