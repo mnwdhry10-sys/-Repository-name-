@@ -55,7 +55,39 @@ async function verify(){
  if(error||!admin){await db.auth.signOut();status('loginStatus','این حساب دسترسی مدیریت ندارد. ابتدا دسترسی مدیر را در Supabase فعال کنید.');$('login').classList.remove('hidden');return;}
  $('login').classList.add('hidden');$('dashboard').classList.remove('hidden');$('who').textContent=user.email||'مدیر';await loadItems();
 }
-$('loginBtn').onclick=async()=>{status('loginStatus','در حال بررسی...');const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});status('loginStatus',error?error.message:'ورود انجام شد.');if(!error)await verify();};
+$('loginBtn').onclick=async()=>{status('loginStatus','در حال بررسی...');const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});status('loginStatus',error?error.message:'ورود انجام شد.');if(!error)await 
+async function uploadBannerImage(file){
+ if(!file||!file.type.startsWith('image/'))throw new Error('فایل انتخاب‌شده تصویر معتبر نیست.');
+ if(file.size>5*1024*1024)throw new Error('حجم تصویر باید کمتر از ۵ مگابایت باشد.');
+ const name=Date.now()+'-'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+ const {error}=await db.storage.from('site-images').upload(name,file,{upsert:false,contentType:file.type});
+ if(error)throw error;
+ return db.storage.from('site-images').getPublicUrl(name).data.publicUrl;
+}
+function clearBannerForm(){$('bannerForm').reset();$('bannerId').value='';$('bannerOrder').value='0';$('bannerActive').checked=true;$('bannerStatus').textContent='آماده ثبت بنر.';}
+async function loadBanners(){
+ const {data,error}=await db.from('site_banners').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+ if(error){$('bannerList').textContent='خطا: '+error.message+' — فایل supabase-admin-setup.sql را در Supabase اجرا کنید.';return;}
+ $('bannerList').innerHTML=(data||[]).map(x=>'<article class="item"><h3>'+esc(x.title)+'</h3>'+(x.image_url?'<img src="'+esc(x.image_url)+'" alt="" style="width:100%;max-width:520px;border-radius:8px">':'')+'<p class="muted">'+(x.active?'فعال':'غیرفعال')+' | ترتیب: '+x.sort_order+'</p><button data-banner-edit="'+x.id+'">ویرایش</button><button class="secondary" data-banner-delete="'+x.id+'">حذف</button></article>').join('')||'<p>هنوز بنری ثبت نشده است.</p>';
+}
+$('bannerForm').onsubmit=async e=>{
+ e.preventDefault();$('bannerStatus').textContent='در حال ذخیره...';
+ try{
+  let imageUrl=$('bannerUrl').value.trim()||null;const file=$('bannerFile').files[0];if(file)imageUrl=await uploadBannerImage(file);
+  if(!imageUrl)throw new Error('لطفاً تصویر بنر را انتخاب کنید یا لینک تصویر را وارد کنید.');
+  const payload={title:$('bannerTitle').value.trim(),image_url:imageUrl,target_url:$('bannerLink').value.trim()||null,active:$('bannerActive').checked,sort_order:Number($('bannerOrder').value)||0};
+  const id=$('bannerId').value;const q=id?db.from('site_banners').update(payload).eq('id',id):db.from('site_banners').insert(payload);
+  const {error}=await q;if(error)throw error;$('bannerStatus').textContent='بنر با موفقیت ذخیره شد.';clearBannerForm();await loadBanners();
+ }catch(err){$('bannerStatus').textContent='ذخیره انجام نشد: '+err.message;}
+};
+$('bannerClear').onclick=clearBannerForm;$('refreshBanners').onclick=loadBanners;
+$('bannerList').onclick=async e=>{
+ const del=e.target.closest('[data-banner-delete]'),edit=e.target.closest('[data-banner-edit]');
+ if(del){if(!confirm('این بنر حذف شود؟'))return;const {error}=await db.from('site_banners').delete().eq('id',del.dataset.bannerDelete);$('bannerStatus').textContent=error?error.message:'بنر حذف شد.';await loadBanners();}
+ if(edit){const {data,error}=await db.from('site_banners').select('*').eq('id',edit.dataset.bannerEdit).single();if(error){$('bannerStatus').textContent=error.message;return;}$('bannerId').value=data.id;$('bannerTitle').value=data.title;$('bannerUrl').value=data.image_url;$('bannerLink').value=data.target_url||'';$('bannerOrder').value=data.sort_order||0;$('bannerActive').checked=data.active;$('bannerFile').value='';window.scrollTo({top:0,behavior:'smooth'});}
+};
+
+verify();};
 $('logout').onclick=async()=>{await db.auth.signOut();location.reload();};
 $('tabs').onclick=async e=>{const b=e.target.closest('button[data-kind]');if(!b)return;kind=b.dataset.kind;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));const fb=kind==='feedback',bn=kind==='banners';$('feedbackPanel').classList.toggle('hidden',!fb);$('bannersPanel').classList.toggle('hidden',!bn);$('contentPanel').classList.toggle('hidden',fb||bn);if(fb)await loadFeedback();else if(bn)await loadBanners();else{clearForm();await loadItems();}};
 function updateFieldsForKind(){const isShohada=kind==='shohada';$('dateLabel').textContent=isShohada?'تاریخ شهادت (اختیاری)':'تاریخ یا زمان برگزاری (اختیاری)';$('locationLabel').textContent=isShohada?'مکان شهادت (اختیاری)':'مکان (اختیاری)';$('eventDate').placeholder=isShohada?'مثلاً ۱۳ آبان ۱۳۶۱':'مثلاً چهارشنبه ۲۰ آبان';$('location').placeholder=isShohada?'مثلاً عین خوش':'محل برگزاری';$('organizerField').classList.toggle('hidden',isShohada);}
