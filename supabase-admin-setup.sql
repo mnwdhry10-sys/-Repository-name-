@@ -110,3 +110,6 @@ with check (bucket_id = 'site-images' and public.is_site_admin());
 drop policy if exists "Admins can delete site images" on storage.objects;
 create policy "Admins can delete site images" on storage.objects
 for delete to authenticated using (bucket_id = 'site-images' and public.is_site_admin());
+
+-- عنوان بنر اختیاری است
+alter table public.site_banners alter column title drop not null;
