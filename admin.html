@@ -55,7 +55,7 @@ async function verify(){
  if(error||!admin){await db.auth.signOut();status('loginStatus','این حساب دسترسی مدیریت ندارد. ابتدا دسترسی مدیر را در Supabase فعال کنید.');$('login').classList.remove('hidden');return;}
  $('login').classList.add('hidden');$('dashboard').classList.remove('hidden');$('who').textContent=user.email||'مدیر';await loadItems();
 }
-$('loginBtn').onclick=async()=>{status('loginStatus','در حال بررسی...');const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});status('loginStatus',error?error.message:'ورود انجام شد.');if(!error)await 
+$('loginBtn').onclick=async()=>{status('loginStatus','در حال بررسی...');const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});status('loginStatus',error?error.message:'ورود انجام شد.');if(!error)await verify();};
 async function uploadBannerImage(file){
  if(!file||!file.type.startsWith('image/'))throw new Error('فایل انتخاب‌شده تصویر معتبر نیست.');
  if(file.size>5*1024*1024)throw new Error('حجم تصویر باید کمتر از ۵ مگابایت باشد.');
