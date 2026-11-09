@@ -65,3 +65,30 @@ end $$;
 
 -- پس از ساخت حساب مدیر در Authentication > Users، شناسه UUID او را جایگزین کنید:
 -- insert into public.admin_users (user_id) values ('UUID-کاربر-مدیر');
+
+-- مدیریت بنرهای صفحه اصلی
+create table if not exists public.site_banners (
+ id uuid primary key default gen_random_uuid(),
+ title text not null,
+ image_url text not null,
+ target_url text,
+ active boolean not null default true,
+ sort_order integer not null default 0,
+ created_at timestamptz not null default now()
+);
+alter table public.site_banners enable row level security;
+drop policy if exists "Public can read active banners" on public.site_banners;
+create policy "Public can read active banners" on public.site_banners
+ for select to anon, authenticated using (active = true);
+drop policy if exists "Admins can read all banners" on public.site_banners;
+create policy "Admins can read all banners" on public.site_banners
+ for select to authenticated using (public.is_site_admin());
+drop policy if exists "Admins can insert banners" on public.site_banners;
+create policy "Admins can insert banners" on public.site_banners
+ for insert to authenticated with check (public.is_site_admin());
+drop policy if exists "Admins can update banners" on public.site_banners;
+create policy "Admins can update banners" on public.site_banners
+ for update to authenticated using (public.is_site_admin()) with check (public.is_site_admin());
+drop policy if exists "Admins can delete banners" on public.site_banners;
+create policy "Admins can delete banners" on public.site_banners
+ for delete to authenticated using (public.is_site_admin());
