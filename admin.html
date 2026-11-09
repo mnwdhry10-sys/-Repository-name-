@@ -87,7 +87,7 @@ $('bannerList').onclick=async e=>{
  if(edit){const {data,error}=await db.from('site_banners').select('*').eq('id',edit.dataset.bannerEdit).single();if(error){$('bannerStatus').textContent=error.message;return;}$('bannerId').value=data.id;$('bannerTitle').value=data.title||'';$('bannerUrl').value=data.image_url;$('bannerLink').value=data.target_url||'';$('bannerOrder').value=data.sort_order||0;$('bannerActive').checked=data.active;$('bannerFile').value='';window.scrollTo({top:0,behavior:'smooth'});}
 };
 
-verify();};
+verify();
 $('logout').onclick=async()=>{await db.auth.signOut();location.reload();};
 $('tabs').onclick=async e=>{const b=e.target.closest('button[data-kind]');if(!b)return;kind=b.dataset.kind;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));const fb=kind==='feedback',bn=kind==='banners';$('feedbackPanel').classList.toggle('hidden',!fb);$('bannersPanel').classList.toggle('hidden',!bn);$('contentPanel').classList.toggle('hidden',fb||bn);if(fb)await loadFeedback();else if(bn)await loadBanners();else{clearForm();await loadItems();}};
 function updateFieldsForKind(){const isShohada=kind==='shohada';$('dateLabel').textContent=isShohada?'تاریخ شهادت (اختیاری)':'تاریخ یا زمان برگزاری (اختیاری)';$('locationLabel').textContent=isShohada?'مکان شهادت (اختیاری)':'مکان (اختیاری)';$('eventDate').placeholder=isShohada?'مثلاً ۱۳ آبان ۱۳۶۱':'مثلاً چهارشنبه ۲۰ آبان';$('location').placeholder=isShohada?'مثلاً عین خوش':'محل برگزاری';$('organizerField').classList.toggle('hidden',isShohada);}
