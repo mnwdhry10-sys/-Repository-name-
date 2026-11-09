@@ -7,10 +7,6 @@
 <link rel="shortcut icon" type="image/jpeg" href="images.jpg">
 <link rel="apple-touch-icon" href="images.jpg">
 <meta name="theme-color" content="#64131d">
-<link rel="manifest" href="./manifest.webmanifest">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="خادم‌الشهداء">
 <title>کمیته خادم‌الشهداء بهبهان | اخبار و فعالیت‌های فرهنگی</title>
 <meta name="description" content="پایگاه رسمی خبری، فرهنگی و مذهبی کمیته خادم‌الشهداء شهرستان بهبهان؛ انتشار اخبار مراسم، برنامه‌های فرهنگی، مناسبت‌های مذهبی و معرفی شهدای بهبهان.">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -519,9 +515,6 @@ allowfullscreen>
 <a href="https://eitaa.com/khademin_shohada_beh" target="_blank" rel="noopener noreferrer" style="color:#d4af37;text-decoration:none;font-weight:bold">@khademin_shohada_beh</a>
 </p>
 <p class="small">تمامی حقوق این پایگاه محفوظ است.</p>
-<p class="small" style="margin-top:14px">
-<button id="installAppBtn" type="button" style="background:#d4af37;color:#35151a;border:0;border-radius:8px;padding:9px 14px;font:inherit;font-weight:bold;cursor:pointer">نصب اپلیکیشن کمیته</button>
-</p>
 </footer>
 
 
@@ -760,36 +753,5 @@ allowfullscreen>
   showDonations();
 })();
 </script>
-
-<script>
-(function () {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('./service-worker.js').catch(function (error) {
-        console.error('ثبت اپلیکیشن انجام نشد:', error);
-      });
-    });
-  }
-  var installPrompt = null;
-  var installButton = document.getElementById('installAppBtn');
-  window.addEventListener('beforeinstallprompt', function (event) {
-    event.preventDefault();
-    installPrompt = event;
-    if (installButton) installButton.style.display = 'inline-block';
-  });
-  if (installButton) {
-    installButton.addEventListener('click', async function () {
-      if (!installPrompt) {
-        alert('برای نصب، منوی سه‌نقطه Chrome را باز کنید و «Install app» یا «افزودن به صفحه اصلی» را بزنید.');
-        return;
-      }
-      installPrompt.prompt();
-      await installPrompt.userChoice;
-      installPrompt = null;
-    });
-  }
-})();
-</script>
-
 </body>
 </html>
