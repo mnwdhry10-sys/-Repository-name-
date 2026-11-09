@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#641B27"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="app-icon.svg">
 <title>پنل مدیریت | خادم‌الشهداء بهبهان</title>
 <style>
 :root{--p:#641B27;--g:#C5A04B;--bg:#F8F6F1;--ink:#292522}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif}header{background:var(--p);color:#fff;text-align:center;padding:22px 12px;border-bottom:4px solid var(--g)}header h1{font-size:22px;margin:0 0 8px}main{max-width:1000px;margin:24px auto;padding:0 14px}.panel,.login,.editor,.item{background:#fff;border:1px solid #eadfd5;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #3920150d}input,textarea,select{width:100%;padding:12px;border:1px solid #cdbfb4;border-radius:8px;font:inherit;margin:7px 0 13px}textarea{min-height:110px;resize:vertical}button{border:0;border-radius:8px;padding:11px 17px;background:var(--p);color:#fff;font:inherit;cursor:pointer;margin:4px}button.secondary{background:#776b61}button.gold{background:var(--g);color:#35151a}.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}.tabs button.active{background:var(--g);color:#35151a}.muted{color:#766b63;font-size:13px}.hidden{display:none!important}.item h3{color:var(--p);margin:0 0 8px}.item p{white-space:pre-wrap}.status{padding:10px;border-radius:8px;background:#f4eee7;margin:10px 0}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.row{grid-template-columns:1fr}header h1{font-size:19px}}
 </style>
 </head>
 <body>
-<header><h1>پنل مدیریت کمیته خادم‌الشهداء</h1><div>پایگاه خبری، فرهنگی و مذهبی شهرستان بهبهان</div></header>
+<header><h1>پنل مدیریت کمیته خادم‌الشهداء</h1><div>پایگاه خبری، فرهنگی و مذهبی شهرستان بهبهان</div><p><a href="index.html" style="color:#fff">بازگشت به سایت اصلی</a></p></header>
 <main>
 <section id="login" class="login">
 <h2>ورود مدیر</h2><p class="muted">برای ورود از حسابی استفاده کنید که دسترسی مدیریت آن در Supabase فعال شده است.</p>
@@ -69,4 +69,5 @@ async function loadFeedback(){status('feedbackList','در حال دریافت پ
 $('refreshFeedback').onclick=loadFeedback;
 verify();
 </script>
+<script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(err => console.warn("Service worker:", err))); }</script>
 </body></html>
