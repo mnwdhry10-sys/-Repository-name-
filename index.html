@@ -414,6 +414,12 @@ a[style*="background:#7b1e2a"]{background:#4b1727!important}
 @keyframes candle-glow{from{opacity:.68;filter:drop-shadow(0 0 3px rgba(255,177,66,.4))}to{opacity:1;filter:drop-shadow(0 0 8px rgba(255,190,83,.9))}}
 @media(max-width:600px){.fatemiyeh-candle-frame{opacity:.7}.candle-edge span{font-size:12px}.candle-top,.candle-bottom{left:16px;right:16px;height:16px}.candle-left,.candle-right{top:22px;bottom:22px;width:15px}.candle-left{left:0}.candle-right{right:0}}
 
+
+/* بنر عکس واقعی انتخاب‌شده */
+.fatemiyeh-photo-banner{width:100%;margin:0;overflow:hidden;background:#10090e;border-bottom:4px solid #c7a56a;line-height:0}
+.fatemiyeh-photo-banner img{display:block;width:100%;height:auto;max-height:560px;object-fit:cover;object-position:center}
+@media(max-width:600px){.fatemiyeh-photo-banner img{min-height:180px;object-fit:cover;object-position:center}}
+
 </style>
 </head>
 
@@ -431,41 +437,7 @@ a[style*="background:#7b1e2a"]{background:#4b1727!important}
 <p>پایگاه خبری، فرهنگی و مذهبی</p>
 </header>
 
-<section class="fatemiyeh-art-banner" role="img" aria-label="بنر هنری ایام فاطمیه؛ یا فاطمة الزهرا، شهادت حضرت فاطمه زهرا تسلیت باد">
-  <svg class="fatemiyeh-art" viewBox="0 0 1600 570" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs>
-      <linearGradient id="fbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080609"/><stop offset=".52" stop-color="#241019"/><stop offset="1" stop-color="#09070a"/></linearGradient>
-      <linearGradient id="fgold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0bd"/><stop offset=".4" stop-color="#d7ae60"/><stop offset="1" stop-color="#8d5c2e"/></linearGradient>
-      <linearGradient id="fdoor" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#21120e"/><stop offset=".5" stop-color="#80502d"/><stop offset="1" stop-color="#24130f"/></linearGradient>
-      <radialGradient id="fcandle"><stop stop-color="#ffd879" stop-opacity=".8"/><stop offset="1" stop-color="#ff9b24" stop-opacity="0"/></radialGradient>
-      <pattern id="forn" width="58" height="58" patternUnits="userSpaceOnUse"><path d="M29 2L56 29 29 56 2 29Z M29 12L46 29 29 46 12 29Z" fill="none" stroke="#c49b58" stroke-opacity=".17" stroke-width="1.5"/></pattern>
-    </defs>
-    <rect width="1600" height="570" fill="url(#fbg)"/>
-    <rect width="1600" height="570" fill="url(#forn)" opacity=".7"/>
-    <path d="M0 0H520V570H0Z" fill="url(#fdoor)" opacity=".88"/>
-    <path d="M35 0V570M470 0V570M65 0H440M65 570H440" stroke="#d0a15d" stroke-opacity=".45" stroke-width="7"/>
-    <g fill="#c89a58" opacity=".55"><circle cx="95" cy="90" r="10"/><circle cx="95" cy="185" r="10"/><circle cx="95" cy="280" r="10"/><circle cx="95" cy="375" r="10"/><circle cx="95" cy="470" r="10"/><circle cx="410" cy="90" r="10"/><circle cx="410" cy="185" r="10"/><circle cx="410" cy="280" r="10"/><circle cx="410" cy="375" r="10"/><circle cx="410" cy="470" r="10"/></g>
-    <path d="M0 0Q210 30 300 0L520 0Q410 180 515 570H0Z" fill="#08070a" opacity=".68"/>
-    <ellipse cx="300" cy="425" rx="180" ry="150" fill="url(#fcandle)"/>
-    <g transform="translate(190 300)"><path d="M0 60Q22 34 46 60V220H0Z" fill="#e5c27c"/><path d="M22 55C-5 20 28 -5 24 -38C57 7 48 32 22 55Z" fill="#ffca57"/><path d="M22 49C12 25 30 13 27 -3C44 20 38 38 22 49Z" fill="#fff2bd"/><path d="M0 85Q25 72 46 85M0 135Q24 125 46 135" fill="none" stroke="#fff0c2" stroke-opacity=".5" stroke-width="4"/></g>
-    <path d="M520 0Q630 70 590 230Q570 390 690 570H480Q535 390 490 250Q460 110 520 0Z" fill="#050407" opacity=".7"/>
-    <path d="M590 0Q770 55 720 570" stroke="#6f4b42" stroke-opacity=".35" stroke-width="28" fill="none"/>
-    <path d="M560 570Q760 485 980 570H1600V570Z" fill="#080609"/>
-    <g fill="#a3263e" opacity=".9"><path d="M120 530q-40-35-5-60q8 30 32 34q-8-26 18-37q7 34-12 54q-12 12-33 9Z"/><path d="M380 555q-32-26-5-49q9 24 26 29q-4-22 18-31q8 27-8 44q-12 12-31 7Z"/><path d="M1420 520q-34-29-4-53q8 26 27 31q-5-24 20-33q7 30-10 47q-13 13-33 8Z"/></g>
-    <g fill="none" stroke="url(#fgold)" stroke-width="3" opacity=".9"><path d="M760 78Q800 20 840 78Q880 20 920 78Q960 20 1000 78"/><path d="M760 492Q800 550 840 492Q880 550 920 492Q960 550 1000 492"/><path d="M700 285H900M1030 285H1230"/></g>
-    <path d="M780 115Q1000 25 1220 115L1270 285 1220 455Q1000 535 780 455L730 285Z" fill="#130b10" stroke="#a8793e" stroke-width="3" opacity=".9"/>
-    <path d="M800 135Q1000 65 1200 135L1235 285 1200 435Q1000 505 800 435L765 285Z" fill="none" stroke="#c6a15e" stroke-width="2" stroke-opacity=".55"/>
-  </svg>
-  <div class="fatemiyeh-art-copy">
-    <span class="fatemiyeh-kicker">فصل سوگ و ارادت</span>
-    <h2>یا فاطمة الزهرا <small>(س)</small></h2>
-    <div class="fatemiyeh-rule"><i></i><span>✦</span><i></i></div>
-    <p>ایام شهادت حضرت فاطمه زهرا (سلام‌الله‌علیها)</p>
-    <strong>تسلیت باد</strong>
-    <em>به یاد بانوی مهربانی و پاکی</em>
-  </div>
-  <span class="fatemiyeh-corner">کمیته خادم‌الشهداء شهرستان بهبهان</span>
-</section>
+<section class="fatemiyeh-photo-banner" aria-label="بنر تصویری ایام فاطمیه"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAgr..." alt="بنر ایام فاطمیه؛ شهادت حضرت فاطمه زهرا (س)" /></section>
 
 <nav>
 <a href="#home">صفحه اصلی</a>
