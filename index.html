@@ -282,6 +282,27 @@ footer a{color:#e5c77f!important}
  .card{padding:17px}
 }
 
+
+.memorial-quote{
+ max-width:1124px;margin:24px auto 12px;padding:30px 20px;text-align:center;
+ background:linear-gradient(135deg,#142536,#203b52);
+ border:2px solid #c6a45a;border-radius:15px;
+ box-shadow:0 8px 24px rgba(20,37,54,.14);
+ position:relative;overflow:hidden
+}
+.memorial-quote:before,.memorial-quote:after{
+ content:"";position:absolute;width:70px;height:70px;border:1px solid rgba(198,164,90,.35);
+ transform:rotate(45deg)
+}
+.memorial-quote:before{top:-42px;right:-25px}
+.memorial-quote:after{bottom:-42px;left:-25px}
+.memorial-quote p{
+ margin:0;color:#f7f1e4;font-size:clamp(23px,4vw,34px);
+ font-weight:bold;line-height:1.9;text-shadow:0 2px 8px #0005
+}
+.memorial-quote span{display:block;width:70px;height:3px;background:#c6a45a;margin:15px auto 0;border-radius:5px}
+@media(max-width:600px){.memorial-quote{margin:20px 13px;padding:23px 12px}}
+
 </style>
 </head>
 
@@ -334,6 +355,12 @@ footer a{color:#e5c77f!important}
   <div class="verse" id="daily-verse-text" aria-live="polite">وَلَا تَحْسَبَنَّ الَّذِينَ قُتِلُوا فِي سَبِيلِ اللَّهِ أَمْوَاتًا</div>
   <div class="translation" id="daily-verse-translation">گمان مبر آنان که در راه خدا کشته شدند، مردگانند؛ بلکه زنده‌اند و نزد پروردگارشان روزی داده می‌شوند. — آل‌عمران، آیه ۱۶۹</div>
   <div id="daily-verse-number" style="font-size:11px;color:#9a865c;margin-top:9px">آیه ۱ از ۵</div>
+</div>
+
+
+<div class="memorial-quote" role="note" aria-label="یاد شهدا">
+ <p>کجایند آن مردان بی‌ادعا</p>
+ <span aria-hidden="true"></span>
 </div>
 
 <main class="container">
