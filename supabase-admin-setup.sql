@@ -98,9 +98,8 @@ create policy "Admins can delete banners" on public.site_banners
 insert into storage.buckets (id,name,public)
 values ('site-images','site-images',true)
 on conflict (id) do update set public = true;
+-- Public bucket URLs allow viewing images without granting list access.
 drop policy if exists "Public can view site images" on storage.objects;
-create policy "Public can view site images" on storage.objects
-for select to anon, authenticated using (bucket_id = 'site-images');
 drop policy if exists "Admins can upload site images" on storage.objects;
 create policy "Admins can upload site images" on storage.objects
 for insert to authenticated with check (bucket_id = 'site-images' and public.is_site_admin());
