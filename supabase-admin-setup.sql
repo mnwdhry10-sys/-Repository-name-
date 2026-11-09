@@ -69,13 +69,14 @@ end $$;
 -- مدیریت بنرهای صفحه اصلی
 create table if not exists public.site_banners (
  id uuid primary key default gen_random_uuid(),
- title text not null,
+ title text,
  image_url text not null,
  target_url text,
  active boolean not null default true,
  sort_order integer not null default 0,
  created_at timestamptz not null default now()
 );
+alter table public.site_banners alter column title drop not null;
 alter table public.site_banners enable row level security;
 drop policy if exists "Public can read active banners" on public.site_banners;
 create policy "Public can read active banners" on public.site_banners
