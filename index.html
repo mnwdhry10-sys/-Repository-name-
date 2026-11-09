@@ -925,7 +925,7 @@ allowfullscreen>
   button.addEventListener('click', function () {
     if (!player.querySelector('iframe')) {
       const frame = document.createElement('iframe');
-      frame.src = 'https://www.youtube-nocookie.com/embed/jiv6AvasjMo?autoplay=1&rel=0';
+      frame.src = 'https://www.youtube.com/embed/jiv6AvasjMo?autoplay=1&rel=0';
       frame.title = 'نوحه تسبیحات حضرت زهرا (س) با صدای حاج مهدی رسولی';
       frame.loading = 'lazy';
       frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
@@ -938,7 +938,7 @@ allowfullscreen>
     button.textContent = 'نوحه در حال پخش است';
     button.disabled = true;
     button.style.opacity = '.8';
-    status.textContent = 'برای توقف یا تنظیم صدا از کنترل‌های پخش‌کننده استفاده کنید.';
+    status.innerHTML = 'اگر پخش‌کننده باز نشد، <a href="https://www.youtube.com/watch?v=jiv6AvasjMo" target="_blank" rel="noopener noreferrer" style="color:#f0d18f;text-decoration:underline">نوحه را در یوتیوب باز کنید</a>. برای توقف یا تنظیم صدا از کنترل‌های پخش‌کننده استفاده کنید.';
   });
 })();
 </script>
