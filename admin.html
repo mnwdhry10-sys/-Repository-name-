@@ -91,7 +91,8 @@ $('bannerForm').onsubmit=async e=>{
  $('bannerStatus').textContent='در حال ذخیره بنر...';
  try{
   let mediaUrl=$('bannerUrl').value.trim()||null;
-  let mediaType=mediaUrl?( /\\.(mp4|webm)(\\?|$)/i.test(mediaUrl)?'video':'image'):null;
+  const cleanMediaUrl=mediaUrl?mediaUrl.split('?')[0].toLowerCase():'';
+  let mediaType=mediaUrl?((cleanMediaUrl.endsWith('.mp4')||cleanMediaUrl.endsWith('.webm'))?'video':'image'):null;
   const file=$('bannerFile').files[0];
   if(file){const uploaded=await uploadBannerFile(file);mediaUrl=uploaded.url;mediaType=uploaded.mediaType;}
   if(!mediaUrl)throw new Error('لطفاً تصویر یا ویدیوی بنر را انتخاب کنید یا لینک آن را وارد کنید.');
