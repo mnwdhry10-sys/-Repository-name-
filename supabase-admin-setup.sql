@@ -113,3 +113,17 @@ for delete to authenticated using (bucket_id = 'site-images' and public.is_site_
 
 -- عنوان بنر اختیاری است
 alter table public.site_banners alter column title drop not null;
+
+-- پشتیبانی از بنر ویدیویی؛ اجرای این بخش برای ارتقای جدول موجود ضروری است
+alter table public.site_banners alter column image_url drop not null;
+alter table public.site_banners add column if not exists video_url text;
+alter table public.site_banners add column if not exists media_type text not null default 'image'
+ check (media_type in ('image','video'));
+-- سقف فایل‌های Storage تا ۵۰ مگابایت و MIME مجاز برای تصویر و ویدیو
+update storage.buckets
+set file_size_limit = 52428800,
+    allowed_mime_types = array[
+      'image/jpeg','image/png','image/webp','image/gif',
+      'video/mp4','video/webm'
+    ]
+where id = 'site-images';
