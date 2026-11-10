@@ -21,7 +21,7 @@
 <div class="tabs" id="tabs">
 <button data-kind="news" class="active">اخبار</button><button data-kind="event">مناسبت‌ها</button><button data-kind="shohada">معرفی شهدا</button><button data-kind="gallery">گزارش تصویری</button><button data-kind="donation">اطلاعیه واریز نذورات</button><button data-kind="feedback">پیام‌های مردمی</button><button data-kind="banners">مدیریت بنرها</button>
 </div>
-<div id="bannersPanel" class="panel hidden"><h2>مدیریت بنرهای سایت</h2><p class="muted">تصویر بنر را از گوشی انتخاب کنید یا نشانی تصویر را وارد کنید. بنرهای فعال در صفحه اصلی نمایش داده می‌شوند.</p><form id="bannerForm"><input id="bannerId" type="hidden"><label>عنوان بنر</label><input id="bannerTitle" maxlength="180" placeholder="اختیاری؛ مثلاً اطلاعیه مراسم هفتگی"><label>لینک تصویر (اختیاری)</label><input id="bannerUrl" type="url" placeholder="https://..."><label>یا انتخاب تصویر از گوشی</label><input id="bannerFile" type="file" accept="image/*"><label>لینک مقصد با کلیک روی بنر (اختیاری)</label><input id="bannerLink" type="url" placeholder="https://..."><div class="row"><div><label>ترتیب نمایش</label><input id="bannerOrder" type="number" value="0"></div><div><label><input id="bannerActive" type="checkbox" checked style="width:auto"> نمایش در سایت</label></div></div><button type="submit">ذخیره بنر</button><button type="button" id="bannerClear" class="secondary">پاک کردن فرم</button><div id="bannerStatus" class="status">آماده ثبت بنر.</div></form><h3>بنرهای ثبت‌شده</h3><button id="refreshBanners" class="gold">به‌روزرسانی فهرست</button><div id="bannerList"></div></div><div id="feedbackPanel" class="panel hidden"><h2>پیام‌های انتقادات و پیشنهادات</h2><button id="refreshFeedback">بارگذاری پیام‌ها</button><div id="feedbackList"></div></div>
+<div id="bannersPanel" class="panel hidden"><h2>مدیریت بنرهای سایت</h2><p class="muted">بنر تصویری یا ویدیویی اضافه کنید. برای ویدیو MP4 یا WebM پیشنهاد می‌شود؛ حداکثر حجم فایل ۵۰ مگابایت است.</p><form id="bannerForm"><input id="bannerId" type="hidden"><label>عنوان بنر</label><input id="bannerTitle" maxlength="180" placeholder="اختیاری؛ مثلاً اطلاعیه مراسم هفتگی"><label>لینک تصویر یا ویدیو (اختیاری)</label><input id="bannerUrl" type="url" placeholder="https://..."><label>یا انتخاب تصویر / ویدیو از گوشی</label><input id="bannerFile" type="file" accept="image/*,video/mp4,video/webm"><label>لینک مقصد با کلیک روی بنر (اختیاری)</label><input id="bannerLink" type="url" placeholder="https://..."><div class="row"><div><label>ترتیب نمایش</label><input id="bannerOrder" type="number" value="0"></div><div><label><input id="bannerActive" type="checkbox" checked style="width:auto"> نمایش در سایت</label></div></div><button type="submit">ذخیره بنر</button><button type="button" id="bannerClear" class="secondary">پاک کردن فرم</button><div id="bannerStatus" class="status">آماده ثبت بنر.</div></form><h3>بنرهای ثبت‌شده</h3><button id="refreshBanners" class="gold">به‌روزرسانی فهرست</button><div id="bannerList"></div></div><div id="feedbackPanel" class="panel hidden"><h2>پیام‌های انتقادات و پیشنهادات</h2><button id="refreshFeedback">بارگذاری پیام‌ها</button><div id="feedbackList"></div></div>
 <div id="contentPanel">
 <form id="editor" class="editor">
 <h2 id="formTitle">افزودن خبر</h2><input id="itemId" type="hidden">
@@ -60,25 +60,29 @@ $('loginBtn').onclick=async(e)=>{e.preventDefault();const btn=$('loginBtn');btn.
 function withBannerTimeout(promise,label){
  return Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error(label+' بیش از ۶۰ ثانیه طول کشید؛ اتصال اینترنت و تنظیمات Supabase را بررسی کنید.')),60000))]);
 }
-async function uploadBannerImage(file){
- if(!file||!file.type.startsWith('image/'))throw new Error('فایل انتخاب‌شده تصویر معتبر نیست.');
- if(file.size>5*1024*1024)throw new Error('حجم تصویر باید کمتر از ۵ مگابایت باشد.');
+async function uploadBannerFile(file){
+ if(!file)throw new Error('فایلی انتخاب نشده است.');
+ const isImage=file.type.startsWith('image/');
+ const isVideo=['video/mp4','video/webm'].includes(file.type);
+ if(!isImage&&!isVideo)throw new Error('فقط تصویر یا ویدیوی MP4 و WebM مجاز است.');
+ const maxSize=isVideo?50*1024*1024:5*1024*1024;
+ if(file.size>maxSize)throw new Error(isVideo?'حجم ویدیو باید کمتر از ۵۰ مگابایت باشد.':'حجم تصویر باید کمتر از ۵ مگابایت باشد.');
  const bucket=db.storage.from('site-images');
  const name=Date.now()+'-'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
- const result=await withBannerTimeout(bucket.upload(name,file,{upsert:false,contentType:file.type}),'آپلود تصویر');
+ const result=await withBannerTimeout(bucket.upload(name,file,{upsert:false,contentType:file.type}),'آپلود فایل بنر');
  if(result.error){
   const msg=result.error.message||'';
   if(/bucket.*not found|not found/i.test(msg))throw new Error('مخزن site-images پیدا نشد.');
-  if(/permission|policy|row-level|unauthorized|forbidden/i.test(msg))throw new Error('دسترسی آپلود مدیر در Storage مجاز نیست. سیاست Admins can upload site images و ثبت حساب مدیر را بررسی کنید. جزئیات: '+msg);
+  if(/permission|policy|row-level|unauthorized|forbidden/i.test(msg))throw new Error('دسترسی آپلود مدیر در Storage مجاز نیست. سیاست Admins can upload site images را بررسی کنید. جزئیات: '+msg);
   throw result.error;
  }
- return bucket.getPublicUrl(name).data.publicUrl;
+ return {url:bucket.getPublicUrl(name).data.publicUrl,mediaType:isVideo?'video':'image'};
 }
 function clearBannerForm(){$('bannerForm').reset();$('bannerId').value='';$('bannerOrder').value='0';$('bannerActive').checked=true;$('bannerStatus').textContent='آماده ثبت بنر.';}
 async function loadBanners(){
  const {data,error}=await db.from('site_banners').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
  if(error){$('bannerList').textContent='خطا: '+error.message+' — فایل supabase-admin-setup.sql را در Supabase اجرا کنید.';return;}
- $('bannerList').innerHTML=(data||[]).map(x=>'<article class="item"><h3>'+esc(x.title)+'</h3>'+(x.image_url?'<img src="'+esc(x.image_url)+'" alt="" style="width:100%;max-width:520px;border-radius:8px">':'')+'<p class="muted">'+(x.active?'فعال':'غیرفعال')+' | ترتیب: '+x.sort_order+'</p><button data-banner-edit="'+x.id+'">ویرایش</button><button class="secondary" data-banner-delete="'+x.id+'">حذف</button></article>').join('')||'<p>هنوز بنری ثبت نشده است.</p>';
+ $('bannerList').innerHTML=(data||[]).map(x=>'<article class="item"><h3>'+esc(x.title)+'</h3>'+(x.video_url?'<video src="'+esc(x.video_url)+'" controls muted playsinline style="width:100%;max-width:520px;border-radius:8px"></video>':(x.image_url?'<img src="'+esc(x.image_url)+'" alt="" style="width:100%;max-width:520px;border-radius:8px">':''))+'<p class="muted">'+(x.active?'فعال':'غیرفعال')+' | '+(x.video_url?'ویدیویی':'تصویری')+' | ترتیب: '+x.sort_order+'</p><button data-banner-edit="'+x.id+'">ویرایش</button><button class="secondary" data-banner-delete="'+x.id+'">حذف</button></article>').join('')||'<p>هنوز بنری ثبت نشده است.</p>';
 }
 $('bannerForm').onsubmit=async e=>{
  e.preventDefault();
@@ -86,11 +90,12 @@ $('bannerForm').onsubmit=async e=>{
  submit.disabled=true;
  $('bannerStatus').textContent='در حال ذخیره بنر...';
  try{
-  let imageUrl=$('bannerUrl').value.trim()||null;
+  let mediaUrl=$('bannerUrl').value.trim()||null;
+  let mediaType=mediaUrl?( /\\.(mp4|webm)(\\?|$)/i.test(mediaUrl)?'video':'image'):null;
   const file=$('bannerFile').files[0];
-  if(file)imageUrl=await uploadBannerImage(file);
-  if(!imageUrl)throw new Error('لطفاً تصویر بنر را انتخاب کنید یا لینک تصویر را وارد کنید.');
-  const payload={title:$('bannerTitle').value.trim()||null,image_url:imageUrl,target_url:$('bannerLink').value.trim()||null,active:$('bannerActive').checked,sort_order:Number($('bannerOrder').value)||0};
+  if(file){const uploaded=await uploadBannerFile(file);mediaUrl=uploaded.url;mediaType=uploaded.mediaType;}
+  if(!mediaUrl)throw new Error('لطفاً تصویر یا ویدیوی بنر را انتخاب کنید یا لینک آن را وارد کنید.');
+  const payload={title:$('bannerTitle').value.trim()||null,image_url:mediaType==='image'?mediaUrl:null,video_url:mediaType==='video'?mediaUrl:null,media_type:mediaType,target_url:$('bannerLink').value.trim()||null,active:$('bannerActive').checked,sort_order:Number($('bannerOrder').value)||0};
   const id=$('bannerId').value;
   const query=id?db.from('site_banners').update(payload).eq('id',id):db.from('site_banners').insert(payload);
   const result=await withBannerTimeout(query,'ذخیره اطلاعات بنر');
@@ -108,7 +113,7 @@ $('bannerClear').onclick=clearBannerForm;$('refreshBanners').onclick=loadBanners
 $('bannerList').onclick=async e=>{
  const del=e.target.closest('[data-banner-delete]'),edit=e.target.closest('[data-banner-edit]');
  if(del){if(!confirm('این بنر حذف شود؟'))return;const {error}=await db.from('site_banners').delete().eq('id',del.dataset.bannerDelete);$('bannerStatus').textContent=error?error.message:'بنر حذف شد.';await loadBanners();}
- if(edit){const {data,error}=await db.from('site_banners').select('*').eq('id',edit.dataset.bannerEdit).single();if(error){$('bannerStatus').textContent=error.message;return;}$('bannerId').value=data.id;$('bannerTitle').value=data.title||'';$('bannerUrl').value=data.image_url;$('bannerLink').value=data.target_url||'';$('bannerOrder').value=data.sort_order||0;$('bannerActive').checked=data.active;$('bannerFile').value='';window.scrollTo({top:0,behavior:'smooth'});}
+ if(edit){const {data,error}=await db.from('site_banners').select('*').eq('id',edit.dataset.bannerEdit).single();if(error){$('bannerStatus').textContent=error.message;return;}$('bannerId').value=data.id;$('bannerTitle').value=data.title||'';$('bannerUrl').value=data.video_url||data.image_url||'';$('bannerLink').value=data.target_url||'';$('bannerOrder').value=data.sort_order||0;$('bannerActive').checked=data.active;$('bannerFile').value='';window.scrollTo({top:0,behavior:'smooth'});}
 };
 
 $('logout').onclick=async()=>{await db.auth.signOut();location.reload();};
