@@ -402,18 +402,6 @@ a[style*="background:#7b1e2a"]{background:#4b1727!important}
 .fatemiyeh-corner{position:absolute;right:22px;top:20px;color:#e4c98f;border:1px solid #a9854d;background:#10090ebd;border-radius:7px;padding:7px 12px;font-size:13px}
 @media(max-width:650px){.fatemiyeh-art-banner{min-height:270px;aspect-ratio:auto}.fatemiyeh-art-copy{width:72%;margin-right:23%;padding:28px 8px}.fatemiyeh-kicker{font-size:11px}.fatemiyeh-art-copy h2{font-size:clamp(27px,8vw,42px)}.fatemiyeh-art-copy p{font-size:14px}.fatemiyeh-art-copy strong{font-size:27px}.fatemiyeh-corner{top:8px;right:8px;font-size:10px;padding:4px 7px}.fatemiyeh-rule{margin-bottom:4px}}
 
-/* قاب شمع‌های بزرگ و واضح در حاشیه تمام صفحات */
-.fatemiyeh-candle-frame{position:fixed;inset:0;z-index:12;pointer-events:none;overflow:hidden;opacity:1}
-.candle-edge{position:absolute;display:flex;align-items:center;justify-content:space-around;gap:12px}
-.candle-edge span{display:flex;align-items:center;justify-content:center;font-size:clamp(25px,2.5vw,34px);line-height:1;padding:3px;border-radius:50%;background:radial-gradient(circle,rgba(255,244,218,.96) 0%,rgba(255,225,166,.72) 48%,rgba(82,47,20,.18) 76%,transparent 100%);filter:drop-shadow(0 2px 3px rgba(35,20,8,.85)) drop-shadow(0 0 9px rgba(255,166,48,.95));animation:candle-glow 2.8s ease-in-out infinite alternate}
-.candle-edge span:nth-child(2n){animation-delay:.8s}
-.candle-top,.candle-bottom{left:30px;right:30px;height:42px}
-.candle-top{top:4px}.candle-bottom{bottom:4px}
-.candle-left,.candle-right{top:48px;bottom:48px;width:38px;flex-direction:column}
-.candle-left{left:3px}.candle-right{right:3px}
-@keyframes candle-glow{from{opacity:.88;filter:drop-shadow(0 2px 3px rgba(35,20,8,.85)) drop-shadow(0 0 6px rgba(255,166,48,.75))}to{opacity:1;filter:drop-shadow(0 2px 4px rgba(35,20,8,.95)) drop-shadow(0 0 13px rgba(255,190,83,1))}}
-@media(max-width:600px){.fatemiyeh-candle-frame{opacity:1}.candle-edge{gap:5px}.candle-edge span{font-size:23px;padding:2px}.candle-top,.candle-bottom{left:22px;right:22px;height:32px}.candle-top{top:3px}.candle-bottom{bottom:3px}.candle-left,.candle-right{top:38px;bottom:38px;width:29px}.candle-left{left:1px}.candle-right{right:1px}}
-
 
 /* بنر عکس واقعی انتخاب‌شده */
 .fatemiyeh-photo-banner{width:100%;margin:0;overflow:hidden;background:#10090e;border-bottom:4px solid #c7a56a;line-height:0}
@@ -440,12 +428,6 @@ a[style*="background:#7b1e2a"]{background:#4b1727!important}
 </head>
 
 <body>
-<div class="fatemiyeh-candle-frame" aria-hidden="true">
-  <div class="candle-edge candle-top"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
-  <div class="candle-edge candle-bottom"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
-  <div class="candle-edge candle-left"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
-  <div class="candle-edge candle-right"><span>🕯️</span><span>🕯️</span><span>🕯️</span><span>🕯️</span></div>
-</div>
 
 <header>
 <img class="logo" src="images.jpg" alt="لوگوی کمیته خادم‌الشهداء">
