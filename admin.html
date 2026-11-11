@@ -56,8 +56,7 @@ async function verify(){
  if(error||!admin){await db.auth.signOut();status('loginStatus','این حساب دسترسی مدیریت ندارد. ابتدا دسترسی مدیر را در Supabase فعال کنید.');$('login').classList.remove('hidden');return;}
  $('login').classList.add('hidden');$('dashboard').classList.remove('hidden');$('who').textContent=user.email||'مدیر';await loadItems();
 }
-$('loginBtn').onclick=async(e)=>{e.preventDefault();const btn=$('loginBtn');btn.disabled=true;try{status('loginStatus','در حال اتصال و بررسی اطلاعات...');const email=$('email').value.trim(),password=$('password').value;if(!email||!password){status('loginStatus','لطفاً ایمیل و رمز عبور را وارد کنید.');return;}const {error}=await db.auth.signInWithPassword({email,password});if(error){status('loginStatus','ورود ناموفق: '+error.message);return;}status('loginStatus','ورود انجام شد؛ در حال بازکردن پنل...');await 
-// verify();}catch(err){status('loginStatus','خطا در ورود: '+(err?.message||String(err)));}finally{btn.disabled=false;}};
+$('loginBtn').onclick=async(e)=>{e.preventDefault();const btn=$('loginBtn');btn.disabled=true;try{status('loginStatus','در حال اتصال و بررسی اطلاعات...');const email=$('email').value.trim(),password=$('password').value;if(!email||!password){status('loginStatus','لطفاً ایمیل و رمز عبور را وارد کنید.');return;}const {error}=await db.auth.signInWithPassword({email,password});if(error){status('loginStatus','ورود ناموفق: '+error.message);return;}status('loginStatus','ورود انجام شد؛ در حال بازکردن پنل...');await verify();}catch(err){status('loginStatus','خطا در ورود: '+(err?.message||String(err)));}finally{btn.disabled=false;}};
 function withBannerTimeout(promise,label){
  return Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error(label+' بیش از ۶۰ ثانیه طول کشید؛ اتصال اینترنت و تنظیمات Supabase را بررسی کنید.')),60000))]);
 }
