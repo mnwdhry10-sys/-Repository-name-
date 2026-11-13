@@ -70,6 +70,7 @@ if(!window.supabase){document.getElementById('loginStatus').textContent='کتا�
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let kind='news';
 let seoTokenClient=null;
+const $=id=>document.getElementById(id);
 const seoSiteUrl='https://mnwdhry10-sys.github.io/Khademishaodabehbahan/';
 function seoDate(daysAgo){const d=new Date();d.setDate(d.getDate()-daysAgo);return d.toISOString().slice(0,10);}
 function seoInitDates(){if(!$('seoStart').value)$('seoStart').value=seoDate(28);if(!$('seoEnd').value)$('seoEnd').value=seoDate(3);}
@@ -80,7 +81,7 @@ function seoConnect(){const clientId=$('seoClientId').value.trim();if(!clientId.
 $('seoConnect').onclick=seoConnect;
 $('seoForget').onclick=()=>{localStorage.removeItem('khadem_seo_client_id');$('seoClientId').value='';$('seoResults').classList.add('hidden');$('seoStatus').textContent='شناسه ذخیره‌شده پاک شد.';};
 
-const $=id=>document.getElementById(id);
+
 const labels={news:'خبر',event:'مناسبت',shohada:'معرفی شهید',gallery:'گزارش تصویری',donation:'اطلاعیه واریز نذورات'};
 function esc(v=''){return String(v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function status(id,msg){$(id).textContent=msg;}
