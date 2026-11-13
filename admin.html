@@ -19,7 +19,30 @@
 <section id="dashboard" class="hidden">
 <div class="panel"><div class="row"><div><strong id="who"></strong><div class="muted">مدیریت محتوای سایت</div></div><div style="text-align:left"><button id="logout" class="secondary">خروج</button></div></div></div>
 <div class="tabs" id="tabs">
-<button data-kind="news" class="active">اخبار</button><button data-kind="event">مناسبت‌ها</button><button data-kind="shohada">معرفی شهدا</button><button data-kind="gallery">گزارش تصویری</button><button data-kind="donation">اطلاعیه واریز نذورات</button><button data-kind="feedback">پیام‌های مردمی</button><button data-kind="banners">مدیریت بنرها</button>
+<button data-kind="news" class="active">اخبار</button><button data-kind="event">مناسبت‌ها</button><button data-kind="shohada">معرفی شهدا</button><button data-kind="gallery">گزارش تصویری</button><button data-kind="donation">اطلاعیه واریز نذورات</button><button data-kind="feedback">پیام‌های مردمی</button><button data-kind="banners">مدیریت بنرها</button><button data-kind="seo">آمار گوگل</button>
+</div>
+<div id="seoPanel" class="panel hidden">
+<h2>آمار جست‌وجوی گوگل</h2>
+<p class="muted">اتصال مستقیم و فقط‌خواندنی به Google Search Console. اطلاعات ورود گوگل در این سایت ذخیره نمی‌شود.</p>
+<div class="status">برای اتصال، شناسه OAuth Client را از Google Cloud بسازید، Search Console API را فعال کنید و دامنه مجاز را روی نشانی همین سایت تنظیم کنید.</div>
+<label>شناسه OAuth Client (پایان آن با .apps.googleusercontent.com)</label>
+<input id="seoClientId" type="text" dir="ltr" placeholder="123456789-....apps.googleusercontent.com">
+<div class="row"><div><label>از تاریخ</label><input id="seoStart" type="date"></div><div><label>تا تاریخ</label><input id="seoEnd" type="date"></div></div>
+<button id="seoConnect" type="button">اتصال گوگل و دریافت آمار</button>
+<button id="seoForget" type="button" class="secondary">پاک‌کردن شناسه ذخیره‌شده</button>
+<div id="seoStatus" class="status" role="status">هنوز به Google Search Console متصل نشده‌اید.</div>
+<div id="seoResults" class="hidden">
+<div class="row">
+<div class="item"><div class="muted">کلیک‌ها</div><h2 id="seoClicks">—</h2></div>
+<div class="item"><div class="muted">نمایش‌ها</div><h2 id="seoImpressions">—</h2></div>
+<div class="item"><div class="muted">نرخ کلیک (CTR)</div><h2 id="seoCtr">—</h2></div>
+<div class="item"><div class="muted">میانگین جایگاه</div><h2 id="seoPosition">—</h2></div>
+</div>
+<h3>عبارت‌های جست‌وجوی برتر</h3><div id="seoQueries"></div>
+<h3>صفحات پربازدید از گوگل</h3><div id="seoPages"></div>
+</div>
+<p class="muted">این بخش فقط داده‌های Search Console را نشان می‌دهد؛ تعداد کل بازدیدکنندگان، کشور و دستگاه‌ها به Google Analytics 4 نیاز دارد. هیچ آماری به‌صورت حدسی نمایش داده نمی‌شود.</p>
+<p><a href="https://search.google.com/search-console" target="_blank" rel="noopener">باز کردن Search Console</a> · <a href="https://console.cloud.google.com/apis/library/searchconsole.googleapis.com" target="_blank" rel="noopener">فعال‌سازی Search Console API</a></p>
 </div>
 <div id="bannersPanel" class="panel hidden"><h2>مدیریت بنرهای سایت</h2><p class="muted">بنر تصویری یا ویدیویی اضافه کنید. برای ویدیو MP4 یا WebM پیشنهاد می‌شود؛ حداکثر حجم فایل ۵۰ مگابایت است.</p><form id="bannerForm"><input id="bannerId" type="hidden"><label>عنوان بنر</label><input id="bannerTitle" maxlength="180" placeholder="اختیاری؛ مثلاً اطلاعیه مراسم هفتگی"><label>لینک تصویر یا ویدیو (اختیاری)</label><input id="bannerUrl" type="url" placeholder="https://..."><div style="margin:12px 0;padding:12px;border:1px solid #c6a45a;border-radius:10px"><label for="bannerFile" style="display:block;font-weight:700">۱) انتخاب تصویر بنر</label><input id="bannerFile" type="file" accept="image/*" style="display:block;width:100%;margin:8px 0 16px"><label for="bannerVideoFile" style="display:block;font-weight:700">۲) انتخاب ویدیوی بنر (فقط MP4 یا WebM)</label><input id="bannerVideoFile" type="file" accept="video/mp4,video/webm,video/*,.mp4,.webm,application/octet-stream" style="display:block;width:100%;margin:8px 0"><small>برای ویدیو، حتماً دکمه انتخاب ویدیوی دوم را بزنید؛ دکمه اول فقط عکس است.</small></div><label>لینک مقصد با کلیک روی بنر (اختیاری)</label><input id="bannerLink" type="url" placeholder="https://..."><div class="row"><div><label>ترتیب نمایش</label><input id="bannerOrder" type="number" value="0"></div><div><label><input id="bannerActive" type="checkbox" checked style="width:auto"> نمایش در سایت</label></div></div><button type="submit">ذخیره بنر</button><button type="button" id="bannerClear" class="secondary">پاک کردن فرم</button><div id="bannerStatus" class="status">آماده ثبت بنر.</div></form><h3>بنرهای ثبت‌شده</h3><button id="refreshBanners" class="gold">به‌روزرسانی فهرست</button><div id="bannerList"></div></div><div id="feedbackPanel" class="panel hidden"><h2>پیام‌های انتقادات و پیشنهادات</h2><button id="refreshFeedback">بارگذاری پیام‌ها</button><div id="feedbackList"></div></div>
 <div id="contentPanel">
@@ -38,6 +61,7 @@
 </div>
 </section>
 </main>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="this.onerror=null;this.src='https://unpkg.com/@supabase/supabase-js@2'"></script>
 <script>
 const SUPABASE_URL='https://ntmhxnzvetexesrkplyx.supabase.co';
@@ -45,6 +69,18 @@ const SUPABASE_KEY='sb_publishable_jSrsYpC4WBiuNBI0wAWoBQ_c0xzT37B';
 if(!window.supabase){document.getElementById('loginStatus').textContent='کتابخانه ورود بارگذاری نشد. اینترنت یا دسترسی به cdn.jsdelivr.net را بررسی کنید و صفحه را تازه‌سازی کنید.';throw new Error('Supabase JS library unavailable');}
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let kind='news';
+let seoTokenClient=null;
+const seoSiteUrl='https://mnwdhry10-sys.github.io/Khademishaodabehbahan/';
+function seoDate(daysAgo){const d=new Date();d.setDate(d.getDate()-daysAgo);return d.toISOString().slice(0,10);}
+function seoInitDates(){if(!$('seoStart').value)$('seoStart').value=seoDate(28);if(!$('seoEnd').value)$('seoEnd').value=seoDate(3);}
+function seoRows(target,rows,label){$(target).innerHTML=(rows||[]).length?'<ol>'+rows.map(r=>'<li style="padding:7px 0;overflow-wrap:anywhere"><strong>'+esc(r.keys?.[0]||'—')+'</strong><div class="muted">کلیک: '+Number(r.clicks||0).toLocaleString('fa-IR')+' | نمایش: '+Number(r.impressions||0).toLocaleString('fa-IR')+' | جایگاه: '+Number(r.position||0).toFixed(1)+'</div></li>').join('')+'</ol>':'<p class="muted">داده‌ای برای این بازه وجود ندارد.</p>';}
+async function seoFetch(token,dimensions){const res=await fetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(seoSiteUrl)+'/searchAnalytics/query',{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({startDate:$('seoStart').value,endDate:$('seoEnd').value,dimensions:dimensions||[],rowLimit:10})});const data=await res.json();if(!res.ok)throw new Error(data.error?.message||'دریافت اطلاعات Search Console ناموفق بود.');return data.rows||[];}
+async function seoLoad(token){$('seoStatus').textContent='در حال دریافت آمار واقعی از Google Search Console...';const totals=await seoFetch(token,[]);const t=totals[0]||{clicks:0,impressions:0,ctr:0,position:0};$('seoClicks').textContent=Number(t.clicks||0).toLocaleString('fa-IR');$('seoImpressions').textContent=Number(t.impressions||0).toLocaleString('fa-IR');$('seoCtr').textContent=(Number(t.ctr||0)*100).toFixed(2)+'٪';$('seoPosition').textContent=Number(t.position||0).toFixed(1);const [queries,pages]=await Promise.all([seoFetch(token,['query']),seoFetch(token,['page'])]);seoRows('seoQueries',queries);seoRows('seoPages',pages);$('seoResults').classList.remove('hidden');$('seoStatus').textContent='آمار با موفقیت دریافت شد. بازه: '+$('seoStart').value+' تا '+$('seoEnd').value;}
+function seoConnect(){const clientId=$('seoClientId').value.trim();if(!clientId.endsWith('.apps.googleusercontent.com')){$('seoStatus').textContent='شناسه OAuth Client معتبر را وارد کنید.';return;}localStorage.setItem('khadem_seo_client_id',clientId);if(!window.google?.accounts?.oauth2){$('seoStatus').textContent='کتابخانه ورود گوگل بارگذاری نشده است. صفحه را تازه‌سازی کنید.';return;}seoTokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'https://www.googleapis.com/auth/webmasters.readonly',callback:async response=>{if(response.error){$('seoStatus').textContent='اتصال گوگل ناموفق بود: '+response.error;return;}try{await seoLoad(response.access_token);}catch(err){$('seoStatus').textContent='خطا: '+(err.message||String(err))+'؛ دسترسی حساب به Property و فعال‌بودن API را بررسی کنید.';}}});seoTokenClient.requestAccessToken({prompt:'consent'});}
+$('seoConnect').onclick=seoConnect;
+$('seoForget').onclick=()=>{localStorage.removeItem('khadem_seo_client_id');$('seoClientId').value='';$('seoResults').classList.add('hidden');$('seoStatus').textContent='شناسه ذخیره‌شده پاک شد.';};
+if($('seoClientId')){$('seoClientId').value=localStorage.getItem('khadem_seo_client_id')||'';seoInitDates();}
+
 const $=id=>document.getElementById(id);
 const labels={news:'خبر',event:'مناسبت',shohada:'معرفی شهید',gallery:'گزارش تصویری',donation:'اطلاعیه واریز نذورات'};
 function esc(v=''){return String(v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
@@ -121,7 +157,7 @@ $('bannerList').onclick=async e=>{
 };
 
 $('logout').onclick=async()=>{await db.auth.signOut();location.reload();};
-$('tabs').onclick=async e=>{const b=e.target.closest('button[data-kind]');if(!b)return;kind=b.dataset.kind;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));const fb=kind==='feedback',bn=kind==='banners';$('feedbackPanel').classList.toggle('hidden',!fb);$('bannersPanel').classList.toggle('hidden',!bn);$('contentPanel').classList.toggle('hidden',fb||bn);if(fb)await loadFeedback();else if(bn)await loadBanners();else{clearForm();await loadItems();}};
+$('tabs').onclick=async e=>{const b=e.target.closest('button[data-kind]');if(!b)return;kind=b.dataset.kind;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));const fb=kind==='feedback',bn=kind==='banners',seo=kind==='seo';$('seoPanel').classList.toggle('hidden',!seo);$('feedbackPanel').classList.toggle('hidden',!fb);$('bannersPanel').classList.toggle('hidden',!bn);$('contentPanel').classList.toggle('hidden',fb||bn);if(fb)await loadFeedback();else if(bn)await loadBanners();else{clearForm();await loadItems();}};
 function updateFieldsForKind(){const isShohada=kind==='shohada';$('dateLabel').textContent=isShohada?'تاریخ شهادت (اختیاری)':'تاریخ یا زمان برگزاری (اختیاری)';$('locationLabel').textContent=isShohada?'مکان شهادت (اختیاری)':'مکان (اختیاری)';$('eventDate').placeholder=isShohada?'مثلاً ۱۳ آبان ۱۳۶۱':'مثلاً چهارشنبه ۲۰ آبان';$('location').placeholder=isShohada?'مثلاً عین خوش':'محل برگزاری';$('organizerField').classList.toggle('hidden',isShohada);}
 function clearForm(){$('editor').reset();$('itemId').value='';$('published').checked=true;updateFieldsForKind();$('formTitle').textContent='افزودن '+labels[kind];status('editStatus','برای افزودن مطلب، فرم را تکمیل کنید.');}
 $('clearBtn').onclick=()=>{clearForm();$('imageFile').value='';$('imageStatus').textContent='';};
