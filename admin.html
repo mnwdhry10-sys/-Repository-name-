@@ -79,12 +79,12 @@ async function seoLoad(token){$('seoStatus').textContent='در حال دریاف
 function seoConnect(){const clientId=$('seoClientId').value.trim();if(!clientId.endsWith('.apps.googleusercontent.com')){$('seoStatus').textContent='شناسه OAuth Client معتبر را وارد کنید.';return;}localStorage.setItem('khadem_seo_client_id',clientId);if(!window.google?.accounts?.oauth2){$('seoStatus').textContent='کتابخانه ورود گوگل بارگذاری نشده است. صفحه را تازه‌سازی کنید.';return;}seoTokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'https://www.googleapis.com/auth/webmasters.readonly',callback:async response=>{if(response.error){$('seoStatus').textContent='اتصال گوگل ناموفق بود: '+response.error;return;}try{await seoLoad(response.access_token);}catch(err){$('seoStatus').textContent='خطا: '+(err.message||String(err))+'؛ دسترسی حساب به Property و فعال‌بودن API را بررسی کنید.';}}});seoTokenClient.requestAccessToken({prompt:'consent'});}
 $('seoConnect').onclick=seoConnect;
 $('seoForget').onclick=()=>{localStorage.removeItem('khadem_seo_client_id');$('seoClientId').value='';$('seoResults').classList.add('hidden');$('seoStatus').textContent='شناسه ذخیره‌شده پاک شد.';};
-if($('seoClientId')){$('seoClientId').value=localStorage.getItem('khadem_seo_client_id')||'';seoInitDates();}
 
 const $=id=>document.getElementById(id);
 const labels={news:'خبر',event:'مناسبت',shohada:'معرفی شهید',gallery:'گزارش تصویری',donation:'اطلاعیه واریز نذورات'};
 function esc(v=''){return String(v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function status(id,msg){$(id).textContent=msg;}
+$('seoClientId').value=localStorage.getItem('khadem_seo_client_id')||'';seoInitDates();
 async function verify(){
  const {data:{user}}=await db.auth.getUser();
  if(!user){$('login').classList.remove('hidden');$('dashboard').classList.add('hidden');return;}
@@ -157,7 +157,7 @@ $('bannerList').onclick=async e=>{
 };
 
 $('logout').onclick=async()=>{await db.auth.signOut();location.reload();};
-$('tabs').onclick=async e=>{const b=e.target.closest('button[data-kind]');if(!b)return;kind=b.dataset.kind;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));const fb=kind==='feedback',bn=kind==='banners',seo=kind==='seo';$('seoPanel').classList.toggle('hidden',!seo);$('feedbackPanel').classList.toggle('hidden',!fb);$('bannersPanel').classList.toggle('hidden',!bn);$('contentPanel').classList.toggle('hidden',fb||bn);if(fb)await loadFeedback();else if(bn)await loadBanners();else{clearForm();await loadItems();}};
+$('tabs').onclick=async e=>{const b=e.target.closest('button[data-kind]');if(!b)return;kind=b.dataset.kind;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));const fb=kind==='feedback',bn=kind==='banners',seo=kind==='seo';$('seoPanel').classList.toggle('hidden',!seo);$('feedbackPanel').classList.toggle('hidden',!fb);$('bannersPanel').classList.toggle('hidden',!bn);$('contentPanel').classList.toggle('hidden',fb||bn||seo);if(fb)await loadFeedback();else if(bn)await loadBanners();else if(!seo){clearForm();await loadItems();}};
 function updateFieldsForKind(){const isShohada=kind==='shohada';$('dateLabel').textContent=isShohada?'تاریخ شهادت (اختیاری)':'تاریخ یا زمان برگزاری (اختیاری)';$('locationLabel').textContent=isShohada?'مکان شهادت (اختیاری)':'مکان (اختیاری)';$('eventDate').placeholder=isShohada?'مثلاً ۱۳ آبان ۱۳۶۱':'مثلاً چهارشنبه ۲۰ آبان';$('location').placeholder=isShohada?'مثلاً عین خوش':'محل برگزاری';$('organizerField').classList.toggle('hidden',isShohada);}
 function clearForm(){$('editor').reset();$('itemId').value='';$('published').checked=true;updateFieldsForKind();$('formTitle').textContent='افزودن '+labels[kind];status('editStatus','برای افزودن مطلب، فرم را تکمیل کنید.');}
 $('clearBtn').onclick=()=>{clearForm();$('imageFile').value='';$('imageStatus').textContent='';};
